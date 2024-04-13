@@ -2,11 +2,12 @@ import supabase from "./supaclient";
 
 export async function getEvents() {
   let events = [];
+  const minCeiled = Math.ceil(1);
   const max = await getNumberOfEvents();
   let ids = new Set();
 
   while (ids.size < 2) {
-    ids.add(Math.floor(Math.random() * max!));
+    ids.add(Math.floor(Math.random() * (max! - minCeiled) + minCeiled)!);
   }
 
   const idsArray = Array.from(ids);
@@ -20,14 +21,16 @@ export async function getEvents() {
 
 export async function getFrontEvents() {
   let events = [];
+  const minCeiled = Math.ceil(1);
   const max = await getNumberOfEvents();
   let ids = new Set();
 
   while (ids.size < 4) {
-    ids.add(Math.floor(Math.random() * max!));
+    ids.add(Math.floor(Math.random() * (max! - minCeiled) + minCeiled)!);
   }
 
   const idsArray = Array.from(ids);
+  console.log(idsArray)
   const queries = idsArray.map((id) =>
     supabase.from("Events").select("*").eq("id", id).single()
   );
@@ -66,7 +69,6 @@ export async function getNumberOfEvents() {
     console.error("Error fetching number of events:", error);
     return 0;
   }
-
   return count;
 }
 
