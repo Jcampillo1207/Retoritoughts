@@ -1,12 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import StoryCard from "./storyCard";
 import { useEffect, useRef, useState } from "react";
-import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
-import { ArrowLeft, ArrowRight, Pause, PlayIcon, RefreshCcw } from "lucide-react";
-import { Badge } from "./ui/badge";
-import { cn } from "@/lib/utils";
+import { ArrowLeft, ArrowRight, RefreshCcw } from "lucide-react";
 import { getEventImages, getFrontEvents } from "@/lib/supabase/events";
 
 export const StorieCards = () => {
@@ -17,52 +14,44 @@ export const StorieCards = () => {
   const startTimeRef = useRef<number>(Date.now());
   const timerInterval = 10000;
   const [isVisible, setIsVisible] = useState(false);
-  const referenceRef = useRef(null);
   const [main, setMain] = useState<any>();
   const [recharge, setRecharge] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.5 }
-    );
+    let isMounted = true;
 
-    if (referenceRef.current) {
-      observer.observe(referenceRef.current);
-    }
-
-    return () => {
-      if (referenceRef.current) {
-        observer.unobserve(referenceRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
     const fetchData = async () => {
-      const events = await getFrontEvents();
-      const data = await Promise.all(
-        events.map(async (event) => {
-          if (event.error === null && event.data.image) {
-            const imageUrl = await getEventImages(event.data.image);
-            return {
-              ...event,
-              data: {
-                ...event.data,
-                image: imageUrl,
-              },
-            };
-          } else {
-            return event;
-          }
-        })
-      );
-      setMain(data);
+      if (isMounted && !isLoading) {
+        setIsLoading(true);
+        const events = await getFrontEvents();
+        const data = await Promise.all(
+          events.map(async (event) => {
+            if (event.error === null && event.data.image) {
+              const imageUrl = await getEventImages(event.data.image);
+              return {
+                data: {
+                  ...event.data,
+                  image: imageUrl,
+                },
+              };
+            } else {
+              return event;
+            }
+          })
+        );
+        if (isMounted) {
+          setMain(data);
+          setIsLoading(false);
+        }
+      }
     };
 
     fetchData();
+
+    return () => {
+      isMounted = false;
+    };
   }, [recharge]);
 
   useEffect(() => {
@@ -183,99 +172,17 @@ export const StorieCards = () => {
         id="reference"
       >
         {main &&
-          main.map((item: any, index: number) => {
-            const isActive = index === activeCardIndex;
-            const card = item.data;
-            return (
-              <div
-                key={index}
-                className={cn(
-                  "flex-1 items-start justify-start min-w-full hidden md:flex flex-col md:min-w-[100px] h-fit w-full duration-500 ease-in-out hover:-translate-y-3",
-                  isActive
-                    ? "min-w-full md:min-w-[500px] flex hover:-translate-y-0"
-                    : ""
-                )}
-              >
-                <div
-                  className={cn(
-                    "w-full aspect-square md:aspect-auto md:h-[600px] p-1 border rounded-2xl cursor-pointer",
-                    isActive ? "cursor-default" : ""
-                  )}
-                  onClick={() => setActiveCardIndex(index)}
-                >
-                  <div className="w-full h-full relative bg-muted rounded-xl overflow-hidden items-center justify-center flex">
-                    <div
-                      className={cn(
-                        "w-full h-full absolute z-10 bg-transparent backdrop-grayscale duration-500 ease-in-out",
-                        isActive ? "hidden" : "flex"
-                      )}
-                    />
-                    <div
-                      className={cn(
-                        "w-full h-full z-20 items-start justify-end flex gap-y-1 md:gap-y-5 flex-col bg-transparent backdrop-blur-[3px] duration-500 ease-in-out p-3",
-                        isActive &&
-                          "backdrop-blur-none bg-gradient-to-t from-black/30 via-transparent to-transparent"
-                      )}
-                    >
-                      <div className="w-full h-fit items-center justify-between flex transition-all">
-                        <span className="flex flex-wrap gap-[2px]">
-                          <Badge
-                            key={index}
-                            variant="default"
-                            className="bg-primary/50 flex-1 min-w-fit max-w-fit font-medium flex gap-x-2 items-center"
-                          >
-                            {card.year}
-                            <p>{(card.BCE && "B.C.E") || "A.C.E"}</p>
-                          </Badge>
-                        </span>
-                        <span className="w-fit items-center justify-center flex transition-all">
-                          {isActive && (
-                            <Button
-                              variant={"outline"}
-                              size={"icon"}
-                              className="text-white bg-transparent border-0 hover:bg-transparent hover:border-0 md:size-8 rounded-sm"
-                              onClick={handlePlayPauseClick}
-                            >
-                              {isPlaying ? (
-                                <Pause className="size-5 fill-white text-white" />
-                              ) : (
-                                <PlayIcon className="size-5 fill-white text-white" />
-                              )}
-                            </Button>
-                          )}
-                        </span>
-                      </div>
-                      {isActive && (
-                        <div className="w-full h-fit items-center justify-center">
-                          <Progress value={progress} />
-                        </div>
-                      )}
-                    </div>
-                    <Image
-                      src={card.image.publicUrl}
-                      alt="Image"
-                      fill
-                      className="object-cover transition-all"
-                    />
-                  </div>
-                </div>
-                <div
-                  className={cn(
-                    "w-full h-fit items-start justify-start hidden flex-col gap-y-3 md:gap-y-7 p-0 md:p-7 px-0 md:px-0 duration-500 ease-in-out pt-10",
-                    isActive ? "opacity-100 flex" : ""
-                  )}
-                >
-                  <h1
-                    className={cn(
-                      "text-3xl md:text-3xl xl:text-3xl antialiased tracking-wide font-bold"
-                    )}
-                  >
-                    {card.title}
-                  </h1>
-                </div>
-              </div>
-            );
-          })}
+          main.map((item: any, index: any) => (
+            <StoryCard
+              key={index}
+              card={item.data}
+              isActive={index === activeCardIndex}
+              onActivate={() => setActiveCardIndex(index)}
+              onTogglePlay={handlePlayPauseClick}
+              isPlaying={isPlaying}
+              progress={progress}
+            />
+          ))}
       </div>
     </div>
   );

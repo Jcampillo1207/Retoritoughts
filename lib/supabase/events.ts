@@ -2,7 +2,7 @@ import supabase from "./supaclient";
 
 export async function getEvents() {
   let events = [];
-  const max = await getNumberOfEvents(); // Ensure this is awaited and assigned correctly
+  const max = await getNumberOfEvents();
   let ids = new Set();
 
   while (ids.size < 2) {
