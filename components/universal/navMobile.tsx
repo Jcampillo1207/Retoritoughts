@@ -81,7 +81,7 @@ export const NavMobile = () => {
                 asChild
                 className="w-full flex items-center justify-between px-4 text-muted-foreground"
               >
-                <Link href={"/"} target="_blank">
+                <Link href={"https://github.com/Jcampillo1207/Retoritoughts"} target="_blank">
                   Give us a star
                   <Github className="size-4" />
                 </Link>

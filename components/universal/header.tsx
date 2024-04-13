@@ -20,7 +20,7 @@ export const Header = () => {
       </Link>
       <div className="w-fit h-full items-center justify-end gap-x-2 hidden lg:flex">
         <Button variant={"outline"} size={"icon"} asChild>
-          <Link href={"/"} target="_blank">
+          <Link href={"https://github.com/Jcampillo1207/Retoritoughts"} target="_blank">
             <Github className="size-4" />
           </Link>
         </Button>
