@@ -150,7 +150,7 @@ export const StorieCards = () => {
   return (
     <div className="w-full h-fit items-start justify-start flex flex-col gap-y-5">
       <div className="w-full justify-between gap-x-2 items-center flex">
-        <span className="w-full h-fit items-center justify-center md:justify-start gap-x-1 flex">
+        <span className="w-full h-fit items-center justify-start md:justify-start gap-x-1 flex">
           <Button
             variant={"outline"}
             size={"icon"}
