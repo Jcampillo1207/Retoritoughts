@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
-import { ArrowLeft, ArrowRight, Pause, PlayIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, Pause, PlayIcon, RefreshCcw } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { cn } from "@/lib/utils";
 import { getEventImages, getFrontEvents } from "@/lib/supabase/events";
@@ -172,8 +172,10 @@ export const StorieCards = () => {
           variant={"default"}
           size={"default"}
           onClick={() => setRecharge(!recharge)}
+          className="flex gap-x-2 items-center justify-center"
         >
           Recharge
+          <RefreshCcw className="size-4" />
         </Button>
       </div>
       <div
