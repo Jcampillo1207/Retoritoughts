@@ -19,6 +19,21 @@ export const metadata: Metadata = {
       sizes: "32x32",
     },
   ],
+  openGraph: {
+    type: "website",
+    url: "retoritoughts.com",
+    title: "Retoritoughts",
+    description:
+      "Retoritoughts is a trivia game where players must guess whether a historical or fictional event happened before or after another. Test your knowledge in this time and sequence challenge.",
+    siteName: "Retoritoughts",
+    images: [
+      {
+        url: `https://uysatyjrbmttzkzisucw.supabase.co/storage/v1/object/public/banner/image.png?t=2024-04-13T06%3A59%3A27.822Z`,
+        height: 600,
+        width: 800,
+      },
+    ],
+  },
 };
 
 export default function Home() {
