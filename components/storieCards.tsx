@@ -24,7 +24,7 @@ export const StorieCards = () => {
     const fetchData = async () => {
       if (isMounted && !isLoading) {
         setIsLoading(true);
-        const events = await getFrontEvents();
+        const events = await getFrontEvents(4);
         const data = await Promise.all(
           events.map(async (event) => {
             if (event.error === null && event.data.image) {

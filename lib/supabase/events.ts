@@ -1,31 +1,12 @@
 import supabase from "./supaclient";
 
-export async function getEvents() {
+export async function getFrontEvents(eventNum: number) {
   let events = [];
   const minCeiled = Math.ceil(1);
   const max = await getNumberOfEvents();
   let ids = new Set();
 
-  while (ids.size < 2) {
-    ids.add(Math.floor(Math.random() * (max! - minCeiled) + minCeiled)!);
-  }
-
-  const idsArray = Array.from(ids);
-  const queries = idsArray.map((id) =>
-    supabase.from("Events").select("*").eq("id", id).single()
-  );
-
-  events = await Promise.all(queries);
-  return events;
-}
-
-export async function getFrontEvents() {
-  let events = [];
-  const minCeiled = Math.ceil(1);
-  const max = await getNumberOfEvents();
-  let ids = new Set();
-
-  while (ids.size < 4) {
+  while (ids.size < eventNum) {
     ids.add(Math.floor(Math.random() * (max! - minCeiled) + minCeiled)!);
   }
 

@@ -3,6 +3,14 @@ import { Figtree } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/themeProvider";
 import { Header } from "@/components/universal/header";
+import { Toaster } from "@/components/ui/sonner";
+import {
+  AlertTriangleIcon,
+  Ban,
+  CheckCircle2,
+  Info,
+  Loader,
+} from "lucide-react";
 
 const inter = Figtree({ subsets: ["latin"] });
 
@@ -27,6 +35,24 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Toaster
+            position="bottom-right"
+            icons={{
+              success: <CheckCircle2 className="size-4" />,
+              info: <Info className="size-4" />,
+              warning: <AlertTriangleIcon className="size-4" />,
+              error: <Ban className="size-4" />,
+              loading: <Loader className="size-4" />,
+            }}
+            toastOptions={{
+              unstyled: false,
+              classNames: {
+                error: "border-destructive text-destructive",
+                success: "border-green-400",
+                warning: "border-yellow-400",
+              },
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>
