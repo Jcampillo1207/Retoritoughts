@@ -43,13 +43,13 @@ export const LoginForm = () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: 'https://retoritoughts.vercel.app/'
-      }
+        redirectTo: "https://retoritoughts.vercel.app/",
+      },
     });
     if (error) {
       toast.error("Unable to use github 😭");
     } else {
-      console.log(data)
+      console.log(data);
       toast.success("Login succesfully, Welcome back 🥳");
     }
   }
@@ -100,24 +100,44 @@ export const LoginForm = () => {
             Forgot your password?
           </Label>
         </div>
-        {/* Button Form */}
-        <Button
-          variant={"default"}
-          size={"default"}
-          className="w-full items-center justify-center flex gap-x-2 mt-3"
-          type="submit"
-        >
-          Log in
-          <LogIn className="size-4" />
-        </Button>
+        <div className="w-full h-fit items-center justify-center flex gap-x-2 mt-3">
+          {/* Button Form */}
+          <Button
+            variant={"default"}
+            size={"default"}
+            className="w-full items-center justify-center flex gap-x-2"
+            type="submit"
+          >
+            Log in
+            <LogIn className="size-4" />
+          </Button>
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            type="button"
+            className="items-center justify-center flex md:hidden aspect-square size-10"
+            onClick={githubHandler}
+          >
+            <Github className="size-4" />
+          </Button>
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            type="button"
+            className="items-center justify-center flex md:hidden aspect-square size-10"
+            onClick={() => {}}
+          >
+            <Google className="size-4" />
+          </Button>
+        </div>
       </form>
-      <Separator className="w-full" orientation="horizontal" />
-      <div className="w-full h-fit items-start justify-start flex flex-col gap-y-3 md:gap-y-5 pt-3 md:pt-5">
+      <Separator className="w-full hidden md:flex" orientation="horizontal" />
+      <div className="w-full h-fit items-center justify-center flex flex-row md:flex-col gap-x-2 gap-y-3 md:gap-y-5 pt-3 md:pt-5">
         {/* Button Github */}
         <Button
           variant={"outline"}
           size={"default"}
-          className="w-full items-center justify-center flex gap-x-2"
+          className="w-full items-center justify-center gap-x-2 hidden md:flex"
           onClick={githubHandler}
         >
           Log in with Github
@@ -127,7 +147,7 @@ export const LoginForm = () => {
         <Button
           variant={"outline"}
           size={"default"}
-          className="w-full items-center justify-center flex gap-x-2"
+          className="w-full items-center justify-center gap-x-2 hidden md:flex"
           onClick={() => {}}
         >
           Log in with Google

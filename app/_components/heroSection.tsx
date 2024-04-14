@@ -4,7 +4,7 @@ import { SectionLanding } from "@/components/layout/sections";
 import Brain from "@/components/renders/brain";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/supaclient";
-import { Upload, LogIn, Loader2 } from "lucide-react";
+import { Upload, LogIn, Loader2, Gamepad2Icon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -44,8 +44,9 @@ export const HeroSection = () => {
             asChild
             className="flex items-center gap-x-2 w-full md:w-fit max-w-sm"
           >
-            <Link href={"/submit"}>
-              Submit an event <Upload className="size-4" />
+            <Link href={"/main/submit"}>
+              {(user && "Submit an event") || "Log in to submit events"}{" "}
+              <Upload className="size-4" />
             </Link>
           </Button>
           {(isLoading && (
@@ -64,8 +65,12 @@ export const HeroSection = () => {
                 variant={"default"}
                 size={"lg"}
                 className="flex items-center gap-x-2 w-full md:w-fit max-w-sm"
+                asChild
               >
-                Play Now
+                <Link href={"/main/play"}>
+                  Play Now
+                  <Gamepad2Icon className="size-4" />
+                </Link>
               </Button>
             )) || (
               <Button

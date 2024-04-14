@@ -113,38 +113,57 @@ export const RegisterForm = () => {
             </Button>
           </span>
         </div>
-        {/* Button Form */}
-        <Button
-          variant={"default"}
-          size={"default"}
-          className="w-full items-center justify-center flex gap-x-2 mt-3"
-          type="submit"
-          disabled={isLoading && true}
-        >
-          Register
-          <LogIn className="size-4" />
-        </Button>
+        <div className="w-full h-fit items-center justify-center flex gap-x-2 mt-3">
+          {/* Button Form */}
+          <Button
+            variant={"default"}
+            size={"default"}
+            className="w-full items-center justify-center flex gap-x-2"
+            type="submit"
+          >
+            Register
+            <LogIn className="size-4" />
+          </Button>
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            type="button"
+            className="items-center justify-center flex md:hidden aspect-square size-10"
+            onClick={githubHandler}
+          >
+            <Github className="size-4" />
+          </Button>
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            type="button"
+            className="items-center justify-center flex md:hidden aspect-square size-10"
+            onClick={() => {}}
+          >
+            <Google className="size-4" />
+          </Button>
+        </div>
       </form>
-      <Separator className="w-full" orientation="horizontal" />
-      <div className="w-full h-fit items-start justify-start flex flex-col gap-y-3 md:gap-y-5 pt-3 md:pt-3">
+      <Separator className="w-full md:flex hidden" orientation="horizontal" />
+      <div className="w-full h-fit items-center justify-center flex flex-row md:flex-col gap-x-2 gap-y-3 md:gap-y-5 pt-3 md:pt-5">
         {/* Button Github */}
         <Button
           variant={"outline"}
           size={"default"}
-          className="w-full items-center justify-center flex gap-x-2"
+          className="w-full items-center justify-center gap-x-2 hidden md:flex"
           onClick={githubHandler}
         >
-          Register with Github
+          Log in with Github
           <Github className="size-4" />
         </Button>
         {/* Button Google */}
         <Button
           variant={"outline"}
           size={"default"}
-          className="w-full items-center justify-center flex gap-x-2"
+          className="w-full items-center justify-center gap-x-2 hidden md:flex"
           onClick={() => {}}
         >
-          Register with Google
+          Log in with Google
           <Google className="size-4" />
         </Button>
       </div>

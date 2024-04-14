@@ -33,7 +33,7 @@ const Reset = () => {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: "https://retoritoughts.vercel.app/auth-reset/password",
+        redirectTo: "https://retoritoughts.vercel.app/auth/reset-password",
       });
       if (error) {
         toast.error(`Error: ${error.message}`);
