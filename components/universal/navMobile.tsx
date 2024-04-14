@@ -46,7 +46,6 @@ export const NavMobile = ({ user }: { user: any }) => {
     }
   };
 
-  console.log(user);
   return (
     <Sheet>
       <SheetTrigger asChild>

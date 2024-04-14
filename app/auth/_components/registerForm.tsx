@@ -40,6 +40,9 @@ export const RegisterForm = () => {
     const supabase = createClient();
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
+      options: {
+        redirectTo: "https://retoritoughts.vercel.app/",
+      },
     });
     if (error) {
       toast.error("Unable to use github 😭");

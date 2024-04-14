@@ -42,10 +42,14 @@ export const LoginForm = () => {
     const supabase = createClient();
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
+      options: {
+        redirectTo: 'https://retoritoughts.vercel.app/'
+      }
     });
     if (error) {
       toast.error("Unable to use github 😭");
     } else {
+      console.log(data)
       toast.success("Login succesfully, Welcome back 🥳");
     }
   }
@@ -93,7 +97,7 @@ export const LoginForm = () => {
             className="text-muted-foreground hover:underline hover:text-primary transition-all text-sm cursor-pointer"
             onClick={() => router.push("/auth/reset-password")}
           >
-            ¿Forgot your password?
+            Forgot your password?
           </Label>
         </div>
         {/* Button Form */}
