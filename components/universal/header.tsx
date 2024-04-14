@@ -8,53 +8,27 @@ import { Logo } from "../vectors/logo";
 import { Separator } from "../ui/separator";
 import { NavMobile } from "./navMobile";
 import { useEffect, useState } from "react";
-import { getUser } from "@/lib/supabase/usermanagement";
-import supabase from "@/lib/supabase/supaclient";
+
 import { UserDropdown } from "./userDropdown";
+import { createClient } from "@/lib/supabase/supaclient";
+import { redirect } from "next/navigation";
+
 
 export const Header = () => {
   const [user, setUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const supabase = createClient()
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const session = supabase.auth.getSession(); // Get the current session
-  //       console.log("Session:", session); // Debug: Check the session object
+  useEffect(() => {
+    const fetchUser = async () => {
+      setIsLoading(true);
+      const { data, error } = await supabase.auth.getUser()
+      setUser(data?.user)
+      console.log(data?.user)
+    };
 
-  //       if (!session) {
-  //         console.log("No active session found, user must re-login.");
-  //         redir
-  //       } else {
-  //         const email = session.user?.email; // Access user's email from session
-  //         if (email) {
-  //           const { data, error } = await supabase
-  //             .from("User")
-  //             .select("*")
-  //             .eq("email", email)
-  //             .limit(1);
-
-  //           if (error) {
-  //             console.error("Error fetching user:", error);
-  //           } else if (data && data.length > 0) {
-  //             setUser(data[0]);
-  //           } else {
-  //             console.log("No user found with that email");
-  //           }
-  //         } else {
-  //           console.log("No email found in session");
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Error in fetchUser:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchUser();
-  // }, []);
+    fetchUser();
+  }, []);
 
   return (
     <header className="w-full h-14 px-5 md:px-7 lg:px-14 xl:px-36 py-3 items-center justify-between flex border-b fixed top-0 bg-background/50 backdrop-blur-sm z-[999]">
@@ -83,7 +57,7 @@ export const Header = () => {
           <Link href={"/leaderboard"}>Leaderboard</Link>
         </Button>
         {user !== null ? (
-          <UserDropdown username={user[0].username} />
+          <UserDropdown username={user.email} />
         ) : (
           <Button variant="default" size="sm" asChild>
             <Link href="/auth">Log in</Link>

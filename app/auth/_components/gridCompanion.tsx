@@ -1,6 +1,5 @@
 "use client";
 
-import { getEventImages, getFrontEvents } from "@/lib/supabase/events";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -8,40 +7,40 @@ export const GridCompanion = () => {
   const [images, setImages] = useState<any[]>();
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true;
+  // useEffect(() => {
+  //   let isMounted = true;
 
-    const fetchData = async () => {
-      if (isMounted && !isLoading) {
-        setIsLoading(true);
-        const events = await getFrontEvents(9);
-        const data = await Promise.all(
-          events.map(async (event) => {
-            if (event.error === null && event.data.image) {
-              const imageUrl = await getEventImages(event.data.image);
-              return {
-                data: {
-                  image: imageUrl,
-                },
-              };
-            } else {
-              return event;
-            }
-          })
-        );
-        if (isMounted) {
-          setImages(data);
-          setIsLoading(false);
-        }
-      }
-    };
+  //   const fetchData = async () => {
+  //     if (isMounted && !isLoading) {
+  //       setIsLoading(true);
+  //       const events = await getFrontEvents(9);
+  //       const data = await Promise.all(
+  //         events.map(async (event) => {
+  //           if (event.error === null && event.data.image) {
+  //             const imageUrl = await getEventImages(event.data.image);
+  //             return {
+  //               data: {
+  //                 image: imageUrl,
+  //               },
+  //             };
+  //           } else {
+  //             return event;
+  //           }
+  //         })
+  //       );
+  //       if (isMounted) {
+  //         setImages(data);
+  //         setIsLoading(false);
+  //       }
+  //     }
+  //   };
 
-    fetchData();
+  //   fetchData();
 
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, []);
 
   return (
     <section className="w-full h-full overflow-hidden flex items-center justify-center lg:border-l absolute lg:relative">

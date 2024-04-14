@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Google from "@/components/vectors/googleVector";
 import { LogoApp } from "@/components/vectors/logo";
-import { userSignup } from "@/lib/supabase/usermanagement";
+import { signup } from "@/lib/supabase/actions";
 import { Eye, EyeOff, Github, Loader2, LogIn } from "lucide-react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -24,12 +24,9 @@ export const RegisterForm = () => {
       icon: <Loader2 className="size-4 animate-spin" />,
     });
     const formData = new FormData(event.currentTarget);
-    const formProps = Object.fromEntries(formData);
     try {
-      let error = await userSignup(
-        formProps.email as string,
-        formProps.password as string,
-        formProps.username as string
+      let error = await signup(
+        formData
       );
       (error && toast.success("Failed to create account")) ||
         toast.success("Account created, welcome");

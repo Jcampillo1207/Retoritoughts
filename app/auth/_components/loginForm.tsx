@@ -6,7 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Google from "@/components/vectors/googleVector";
 import { LogoApp } from "@/components/vectors/logo";
-import { userSignin } from "@/lib/supabase/usermanagement";
+import { login } from "@/lib/supabase/actions";
+
 import { Eye, EyeOff, Github, Loader2, LogIn } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -19,31 +20,6 @@ export const LoginForm = () => {
 
   const visibility = (psw && "text") || "password";
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setIsLoading(true);
-    toast("Logging you in your account", {
-      icon: <Loader2 className="size-4 animate-spin" />,
-    });
-    const formData = new FormData(event.currentTarget);
-    const formProps = Object.fromEntries(formData);
-    try {
-      let error = await userSignin(
-        formProps.email as string,
-        formProps.password as string
-      );
-      {
-        (error && toast.error("Failed to login")) ||
-          toast.success("Login succesfull, welcome back 🤩");
-      }
-      router.push("/")
-    } catch (error) {
-      toast.error("Failed to login");
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   return (
     <div className="w-full h-fit items-start flex justify-start bg-accent/70 backdrop-blur-sm border p-5 md:p-7 flex-col rounded-2xl">
       <div className="w-full h-fit items-center justify-start flex gap-x-3 pb-10">
@@ -54,7 +30,6 @@ export const LoginForm = () => {
       </div>
       {/* Form */}
       <form
-        onSubmit={handleSubmit}
         className="w-full h-fit items-start justify-start gap-y-7 flex flex-col pb-5"
       >
         {/* Input Mail */}
@@ -96,6 +71,7 @@ export const LoginForm = () => {
           size={"default"}
           className="w-full items-center justify-center flex gap-x-2 mt-3"
           type="submit"
+          formAction={login}
         >
           Log in
           <LogIn className="size-4" />

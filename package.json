@@ -20,6 +20,7 @@
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@splinetool/react-spline": "^2.2.6",
+    "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.42.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

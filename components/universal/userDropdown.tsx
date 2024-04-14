@@ -9,21 +9,15 @@ import {
 import { Button } from "../ui/button";
 import { ChevronDown, LogOut, UserCircle2Icon } from "lucide-react";
 import { Label } from "../ui/label";
-import supabase from "@/lib/supabase/supaclient";
 import { useRouter } from "next/router";
+import { logout } from "@/lib/supabase/actions";
 
 interface UserDropdownProps {
   username: string;
 }
 export const UserDropdown = ({ username }: UserDropdownProps) => {
-  const router = useRouter();
   async function handleLogout() {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("Logout failed:", error);
-    } else {
-      router.push("/");
-    }
+    logout();
   }
 
   return (
