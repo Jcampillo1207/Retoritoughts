@@ -43,10 +43,11 @@ export const Header = () => {
         .from("User")
         .select("*")
         .eq("email", user.email);
+      console.log(data);
       if (error) {
         console.log(error);
       } else {
-        if (user.email !== data[0].email) {
+        if (data) {
           const { error } = await supabase
             .from("User")
             .insert({ email: user.email, username: user.email });
@@ -57,11 +58,11 @@ export const Header = () => {
       }
     };
 
-    if (user == null && user === undefined) {
-    } else {
+    console.log(user);
+    if (user) {
       checkUser();
     }
-  }, []);
+  }, [user]);
 
   return (
     <header className="w-full h-14 px-5 md:px-7 lg:px-14 xl:px-36 py-3 items-center justify-between flex border-b fixed top-0 bg-background/50 backdrop-blur-sm z-[999]">
