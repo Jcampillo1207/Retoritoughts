@@ -1,7 +1,7 @@
 import { createClient } from "./supaclient";
 
 export async function getFrontEvents(eventNum: number) {
-  const supabase = await createClient()
+  const supabase = await createClient();
 
   let events = [];
   const minCeiled = Math.ceil(1);
@@ -30,7 +30,7 @@ export async function makeEvent(
   day: number,
   BCE: boolean
 ) {
-  const supabase = await createClient()
+  const supabase = await createClient();
   const { error } = await supabase.from("Events").insert({
     title: title,
     description: description,
@@ -45,7 +45,7 @@ export async function makeEvent(
 }
 
 export async function getNumberOfEvents() {
-  const supabase = await createClient()
+  const supabase = await createClient();
   const { data, error, count } = await supabase
     .from("Events")
     .select("*", { count: "exact" });
@@ -58,7 +58,23 @@ export async function getNumberOfEvents() {
 }
 
 export async function getEventImages(name: string) {
-  const supabase = await createClient()
+  const supabase = await createClient();
   let { data } = supabase.storage.from("eventos").getPublicUrl(name);
   return data;
+}
+
+export async function getUserInfo(email: string) {
+  const supabase = await createClient();
+
+  let { data: User, error } = await supabase
+    .from("User")
+    .select("*")
+    .eq("email", email)
+    .limit(1);
+
+  if (error) {
+    return error;
+  } else {
+    return User;
+  }
 }

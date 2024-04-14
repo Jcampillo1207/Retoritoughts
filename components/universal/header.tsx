@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ModeToggle } from "../helpers/themeToggle";
 import { Button } from "../ui/button";
-import { Github } from "lucide-react";
+import { Github, Loader2 } from "lucide-react";
 import { Logo } from "../vectors/logo";
 import { Separator } from "../ui/separator";
 import { NavMobile } from "./navMobile";
@@ -11,24 +11,32 @@ import { useEffect, useState } from "react";
 
 import { UserDropdown } from "./userDropdown";
 import { createClient } from "@/lib/supabase/supaclient";
-import { redirect } from "next/navigation";
-
 
 export const Header = () => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
-  const supabase = createClient()
 
   useEffect(() => {
+    const supabase = createClient();
     const fetchUser = async () => {
       setIsLoading(true);
-      const { data, error } = await supabase.auth.getUser()
-      setUser(data?.user)
-      console.log(data?.user)
+      try {
+        const { data, error } = await supabase.auth.getUser();
+        if (error) {
+          console.error("Error fetching user:", error);
+        } else {
+          setUser(data?.user);
+        }
+      } catch (error) {
+        console.error("Unexpected error:", error);
+      }
+      setIsLoading(false);
     };
 
     fetchUser();
   }, []);
+
+  console.log(user);
 
   return (
     <header className="w-full h-14 px-5 md:px-7 lg:px-14 xl:px-36 py-3 items-center justify-between flex border-b fixed top-0 bg-background/50 backdrop-blur-sm z-[999]">
@@ -56,13 +64,22 @@ export const Header = () => {
         <Button variant={"outline"} size={"sm"} asChild>
           <Link href={"/leaderboard"}>Leaderboard</Link>
         </Button>
-        {user !== null ? (
-          <UserDropdown username={user.email} />
-        ) : (
-          <Button variant="default" size="sm" asChild>
-            <Link href="/auth">Log in</Link>
-          </Button>
-        )}
+        {(user && <UserDropdown username={user.email} />) ||
+          (isLoading && (
+            <Button
+              variant={"secondary"}
+              size={"sm"}
+              disabled
+              className="flex gap-x-2"
+            >
+              Loading
+              <Loader2 className="size-4 animate-spin" />
+            </Button>
+          )) || (
+            <Button variant="default" size="sm" asChild>
+              <Link href="/auth">Log in</Link>
+            </Button>
+          )}
         <Separator orientation="vertical" className="rounded-full" />
         <ModeToggle />
       </div>

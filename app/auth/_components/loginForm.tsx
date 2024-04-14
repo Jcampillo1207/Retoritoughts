@@ -6,7 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Google from "@/components/vectors/googleVector";
 import { LogoApp } from "@/components/vectors/logo";
-import { login } from "@/lib/supabase/actions";
+import { loginUser } from "@/lib/supabase/actions";
+import { createClient } from "@/lib/supabase/supaclient";
 
 import { Eye, EyeOff, Github, Loader2, LogIn } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
@@ -16,9 +17,33 @@ import { toast } from "sonner";
 export const LoginForm = () => {
   const [psw, setPsw] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const visibility = (psw && "text") || "password";
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsLoading(true);
+    toast("Creating your account", {
+      icon: <Loader2 className="size-4 animate-spin" />,
+    });
+    const formData = new FormData(event.currentTarget);
+    const error = await loginUser(formData);
+    if (error) {
+      console.log(error);
+    } else {
+      router.push("/");
+    }
+
+    setIsLoading(false);
+  }
+
+  async function githubHandler() {
+    const supabase = createClient();
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+    });
+  }
 
   return (
     <div className="w-full h-fit items-start flex justify-start bg-accent/70 backdrop-blur-sm border p-5 md:p-7 flex-col rounded-2xl">
@@ -30,6 +55,7 @@ export const LoginForm = () => {
       </div>
       {/* Form */}
       <form
+        onSubmit={handleSubmit}
         className="w-full h-fit items-start justify-start gap-y-7 flex flex-col pb-5"
       >
         {/* Input Mail */}
@@ -59,8 +85,8 @@ export const LoginForm = () => {
             </Button>
           </span>
           <Label
-            onClick={() => {}}
             className="text-muted-foreground hover:underline hover:text-primary transition-all text-sm cursor-pointer"
+            onClick={() => router.push("/auth/reset-password")}
           >
             ¿Forgot your password?
           </Label>
@@ -71,7 +97,6 @@ export const LoginForm = () => {
           size={"default"}
           className="w-full items-center justify-center flex gap-x-2 mt-3"
           type="submit"
-          formAction={login}
         >
           Log in
           <LogIn className="size-4" />
@@ -84,7 +109,7 @@ export const LoginForm = () => {
           variant={"outline"}
           size={"default"}
           className="w-full items-center justify-center flex gap-x-2"
-          onClick={() => {}}
+          onClick={githubHandler}
         >
           Log in with Github
           <Github className="size-4" />

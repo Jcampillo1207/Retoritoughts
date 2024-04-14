@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { AuthComponent } from "./_components/authComponent";
 import { GridCompanion } from "./_components/gridCompanion";
+import { Header } from "@/components/universal/header";
 
 export const metadata: Metadata = {
   title: "Retoritoughts",
@@ -32,10 +33,13 @@ export const metadata: Metadata = {
 
 const AuthPage = () => {
   return (
+    <>
+    <Header />
     <main className="w-full min-h-screen h-fit grid grid-cols-1 lg:grid-cols-2 bg-dot-black/15 dark:bg-dot-white/5">
       <AuthComponent />
       <GridCompanion />
     </main>
+    </>
   );
 };
 

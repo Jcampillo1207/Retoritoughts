@@ -6,9 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Google from "@/components/vectors/googleVector";
 import { LogoApp } from "@/components/vectors/logo";
-import { signup } from "@/lib/supabase/actions";
+import { signupUser } from "@/lib/supabase/actions";
 import { Eye, EyeOff, Github, Loader2, LogIn } from "lucide-react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -16,6 +16,7 @@ export const RegisterForm = () => {
   const [psw, setPsw] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const visibility = (psw && "text") || "password";
+  const router = useRouter();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -24,17 +25,14 @@ export const RegisterForm = () => {
       icon: <Loader2 className="size-4 animate-spin" />,
     });
     const formData = new FormData(event.currentTarget);
-    try {
-      let error = await signup(
-        formData
-      );
-      (error && toast.success("Failed to create account")) ||
-        toast.success("Account created, welcome");
-    } catch (error) {
-      toast.error("Failed to create account");
-    } finally {
-      setIsLoading(false);
+    const error = await signupUser(formData);
+    if (error) {
+      console.log(error);
+    } else {
+      router.push("/");
     }
+
+    setIsLoading(false);
   }
 
   return (

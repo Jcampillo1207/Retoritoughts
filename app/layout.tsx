@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/themeProvider";
-import { Header } from "@/components/universal/header";
 import { Toaster } from "@/components/ui/sonner";
 import {
   AlertTriangleIcon,
@@ -33,7 +32,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
           {children}
           <Toaster
             position="bottom-right"
