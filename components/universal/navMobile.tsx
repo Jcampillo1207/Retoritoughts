@@ -53,7 +53,7 @@ export const NavMobile = ({ user }: { user: any }) => {
           <Menu className="size-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"bottom"}>
+      <SheetContent side={"bottom"} className="max-h-[80%] overflow-scroll">
         <div className="w-full h-fit items-start justify-between flex flex-col gap-y-5 pb-5">
           <div className="w-full h-fit items-start justify-start flex flex-col gap-y-5 pb-5">
             <div className="w-full h-fit items-start justify-start flex flex-col gap-y-3 pb-5">
