@@ -1,4 +1,7 @@
-import { createClient } from "./supaclient";
+"use server";
+
+import { error } from "console";
+import { createClient } from "./server";
 
 export async function getFrontEvents(eventNum: number) {
   const supabase = await createClient();
@@ -76,5 +79,35 @@ export async function getUserInfo(email: string) {
     return error;
   } else {
     return User;
+  }
+}
+
+export async function updateScore(score: number, email: string) {
+  const supabase = await createClient();
+  console.log(email);
+
+  let scores = await supabase
+    .from("User")
+    .select("*")
+    .eq("email", email);
+
+  console.log(scores);
+
+  if (error) {
+    return error;
+  } else {
+      // const realScore = data![0].max_score;
+      // if (score > realScore) {
+      //   const { data, error } = await supabase
+      //     .from("User")
+      //     .update({ max_score: score })
+      //     .eq("email", email)
+      //     .select();
+      //   if (error) {
+      //     return error;
+      //   } else {
+      //     return data;
+      //   }
+      // }
   }
 }

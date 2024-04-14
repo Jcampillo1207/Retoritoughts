@@ -35,7 +35,7 @@ const AuthPage = () => {
   return (
     <>
     <Header />
-    <main className="w-full min-h-screen h-fit grid grid-cols-1 lg:grid-cols-2 bg-dot-black/15 dark:bg-dot-white/5">
+    <main className="w-full min-h-[10dvh] h-screen max-h-[100dvh] grid grid-cols-1 lg:grid-cols-2 bg-dot-black/15 dark:bg-dot-white/5 overflow-hidden">
       <AuthComponent />
       <GridCompanion />
     </main>

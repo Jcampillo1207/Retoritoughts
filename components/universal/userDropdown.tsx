@@ -63,7 +63,6 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
     checkAuthStatus();
   }, [username]);
 
-
   if (userData === undefined) {
     return (
       <Button
@@ -104,7 +103,7 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
             </div>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[200px] space-y-2">
+        <DropdownMenuContent align="end" className="w-[200px] space-y-2">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild className="cursor-pointer">

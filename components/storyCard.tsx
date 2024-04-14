@@ -35,7 +35,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
 }) => {
   return (
     <>
-      {(card && (
+      {card !== undefined && card !== null ? (
         <div
           className={cn(
             "flex-1 items-start justify-start min-w-full hidden md:flex flex-col md:min-w-[100px] h-fit w-full duration-500 ease-in-out hover:-translate-y-3",
@@ -106,7 +106,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
                 {isActive && <Progress value={progress} />}
               </div>
               <Image
-                src={card.image.publicUrl}
+                src={card.image && card.image.publicUrl || "/logoret.svg"}
                 alt="Image"
                 fill
                 className="object-cover transition-all"
@@ -114,7 +114,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
             </div>
           </div>
         </div>
-      )) || (
+      ) : (
         <Skeleton className="flex-1 items-start justify-start min-w-full hidden md:flex flex-col md:min-w-[100px] h-fit w-full duration-500 ease-in-out hover:-translate-y-3" />
       )}
     </>

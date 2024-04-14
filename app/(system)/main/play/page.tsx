@@ -11,7 +11,7 @@ export default async function PlayPage() {
 
   return (
     <main className="w-full h-screen items-center justify-center">
-      Lets Play
+
     </main>
   );
 }

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { NavBarMain } from "../_components/navbarMain";
 
 export default async function MainPage() {
   const supabase = createClient();
@@ -11,7 +12,7 @@ export default async function MainPage() {
 
   return (
     <main className="w-full h-screen items-center justify-center">
-      Main
+      <NavBarMain />
     </main>
   );
 }

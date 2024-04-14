@@ -15,7 +15,7 @@ export const StorieCards = () => {
   const timerInterval = 10000;
   const [isVisible, setIsVisible] = useState(false);
   const [main, setMain] = useState<any>();
-  const [recharge, setRecharge] = useState(true);
+  const [recharge, setRecharge] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

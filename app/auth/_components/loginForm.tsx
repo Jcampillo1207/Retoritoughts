@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Google from "@/components/vectors/googleVector";
 import { LogoApp } from "@/components/vectors/logo";
-import { loginUser } from "@/lib/supabase/actions";
+import { githubHandler, loginUser } from "@/lib/supabase/actions";
 import { createClient } from "@/lib/supabase/supaclient";
 
 import { Eye, EyeOff, Github, Loader2, LogIn } from "lucide-react";
@@ -36,22 +36,6 @@ export const LoginForm = () => {
     }
 
     setIsLoading(false);
-  }
-
-  async function githubHandler() {
-    const supabase = createClient();
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: "https://retoritoughts.vercel.app/",
-      },
-    });
-    if (error) {
-      toast.error("Unable to use github 😭");
-    } else {
-      console.log(data);
-      toast.success("Login succesfully, Welcome back 🥳");
-    }
   }
 
   return (

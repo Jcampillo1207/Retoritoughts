@@ -15,7 +15,6 @@ export async function signupUser(formData: FormData) {
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    console.log(error);
     toast.error("Failed to create account 😫");
     return error;
   } else {
@@ -40,9 +39,11 @@ export async function signupUser(formData: FormData) {
       return error;
     }
   }
+  toast.success("Account created, welcome 🥳");
 }
 
 // LogIn
+
 export async function loginUser(formData: FormData) {
   const supabase = createClient();
   const data = {
@@ -79,5 +80,39 @@ export async function resetPassword(formData: FormData) {
     toast.error("Failed to reset password");
   } else {
     redirect("/auth");
+  }
+}
+
+// Login using Github
+
+export async function githubHandler() {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+    options: {
+      redirectTo: "https://retoritoughts.vercel.app/",
+    },
+  });
+  if (error) {
+    toast.error("Unable to use github 😭");
+  } else {
+    toast.success("Login succesfully, Welcome back 🥳");
+  }
+}
+
+// Login using Google
+
+export async function googleHandler() {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+    options: {
+      redirectTo: "https://retoritoughts.vercel.app/",
+    },
+  });
+  if (error) {
+    toast.error("Unable to use google 😭");
+  } else {
+    toast.success("Login succesfully, Welcome back 🥳");
   }
 }

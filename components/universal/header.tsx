@@ -36,6 +36,33 @@ export const Header = () => {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    const supabase = createClient();
+    const checkUser = async () => {
+      const { data, error } = await supabase
+        .from("User")
+        .select("*")
+        .eq("email", user.email);
+      if (error) {
+        console.log(error);
+      } else {
+        if (user.email !== data[0].email) {
+          const { error } = await supabase
+            .from("User")
+            .insert({ email: user.email, username: user.email });
+          if (error) {
+            console.log(error);
+          }
+        }
+      }
+    };
+
+    if (user == null && user === undefined) {
+    } else {
+      checkUser();
+    }
+  });
+
   return (
     <header className="w-full h-14 px-5 md:px-7 lg:px-14 xl:px-36 py-3 items-center justify-between flex border-b fixed top-0 bg-background/50 backdrop-blur-sm z-[999]">
       <Link
@@ -57,27 +84,20 @@ export const Header = () => {
           </Link>
         </Button>
         <Button variant={"outline"} size={"sm"} asChild>
-          <Link href={"/submit"}>Submit events</Link>
+          <Link href={"/submit"}>
+            {user !== undefined && user !== null
+              ? "Submit events"
+              : "Login to submit events"}
+          </Link>
         </Button>
         <Button variant={"outline"} size={"sm"} asChild>
           <Link href={"/leaderboard"}>Leaderboard</Link>
         </Button>
-        {(user && <UserDropdown username={user} />) ||
-          (isLoading && (
-            <Button
-              variant={"secondary"}
-              size={"sm"}
-              disabled
-              className="flex gap-x-2"
-            >
-              Loading
-              <Loader2 className="size-4 animate-spin" />
-            </Button>
-          )) || (
-            <Button variant="default" size="sm" asChild>
-              <Link href="/auth">Log in</Link>
-            </Button>
-          )}
+        {(user && <UserDropdown username={user} />) || (
+          <Button variant="default" size="sm" asChild>
+            <Link href="/auth">Log in</Link>
+          </Button>
+        )}
         <Separator orientation="vertical" className="rounded-full" />
         <ModeToggle />
       </div>

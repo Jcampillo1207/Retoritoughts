@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Google from "@/components/vectors/googleVector";
 import { LogoApp } from "@/components/vectors/logo";
-import { signupUser } from "@/lib/supabase/actions";
+import { githubHandler, signupUser } from "@/lib/supabase/actions";
 import { createClient } from "@/lib/supabase/supaclient";
 import { Eye, EyeOff, Github, Loader2, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -34,21 +34,6 @@ export const RegisterForm = () => {
     }
 
     setIsLoading(false);
-  }
-
-  async function githubHandler() {
-    const supabase = createClient();
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: "https://retoritoughts.vercel.app/",
-      },
-    });
-    if (error) {
-      toast.error("Unable to use github 😭");
-    } else {
-      toast.success("Login succesfully, Welcome back 🥳");
-    }
   }
 
   return (
@@ -153,7 +138,7 @@ export const RegisterForm = () => {
           className="w-full items-center justify-center gap-x-2 hidden md:flex"
           onClick={githubHandler}
         >
-          Log in with Github
+          Register with Github
           <Github className="size-4" />
         </Button>
         {/* Button Google */}
@@ -163,7 +148,7 @@ export const RegisterForm = () => {
           className="w-full items-center justify-center gap-x-2 hidden md:flex"
           onClick={() => {}}
         >
-          Log in with Google
+          Register with Google
           <Google className="size-4" />
         </Button>
       </div>
