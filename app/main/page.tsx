@@ -1,8 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { NavBar } from "./_components/navbar";
 
-export default async function PrivatePage() {
+export default async function MainPage() {
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.getUser();
@@ -12,7 +11,7 @@ export default async function PrivatePage() {
 
   return (
     <main className="w-full h-screen items-center justify-center">
-      <NavBar data={data} />
+      Main
     </main>
   );
 }

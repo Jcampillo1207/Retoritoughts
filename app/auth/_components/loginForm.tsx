@@ -43,6 +43,11 @@ export const LoginForm = () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
     });
+    if (error) {
+      toast.error("Unable to use github 😭");
+    } else {
+      toast.success("Login succesfully, Welcome back 🥳");
+    }
   }
 
   return (

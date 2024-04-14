@@ -53,14 +53,18 @@ export const HeroSection = () => {
               variant={"secondary"}
               size={"lg"}
               disabled
-              className="flex gap-x-2"
+              className="flex items-center gap-x-2 w-full md:w-fit max-w-sm"
             >
               Loading
               <Loader2 className="size-4 animate-spin" />
             </Button>
           )) ||
             (user && (
-              <Button variant={"default"} size={"lg"}>
+              <Button
+                variant={"default"}
+                size={"lg"}
+                className="flex items-center gap-x-2 w-full md:w-fit max-w-sm"
+              >
                 Play Now
               </Button>
             )) || (

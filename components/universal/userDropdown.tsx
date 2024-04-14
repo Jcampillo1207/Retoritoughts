@@ -11,10 +11,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { ChevronDown, Loader2, LogOut, Trophy, UserCircle2Icon } from "lucide-react";
+import {
+  ChevronDown,
+  Loader2,
+  LogOut,
+  Trophy,
+  UserCircle2Icon,
+} from "lucide-react";
 import { Label } from "../ui/label";
 import { createClient } from "@/lib/supabase/supaclient";
 import { getUserInfo } from "@/lib/supabase/events";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 interface UserDropdownProps {
   username: string;
@@ -47,8 +54,7 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
     const checkAuthStatus = async () => {
       const supabase = createClient();
       const user = await supabase.auth.getUser();
-      const userInfo = await getUserInfo(username);
-      setUserData(userInfo);
+      setUserData(user);
       if (!user) {
         router.push("/auth");
       }
@@ -56,6 +62,7 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
 
     checkAuthStatus();
   }, [username]);
+
 
   if (userData === undefined) {
     return (
@@ -75,8 +82,24 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="sm">
             <div className="flex items-center justify-start gap-x-2">
-              <UserCircle2Icon className="size-4" />
-              <Label>{userData[0].username}</Label>
+              {userData.data.user.app_metadata.provider === "github" ? (
+                <Avatar className="size-4">
+                  <AvatarImage
+                    src={userData.data.user.user_metadata.avatar_url}
+                  />
+                  <AvatarFallback asChild>
+                    <div className="bg-primary size-4 rounded-full"></div>
+                  </AvatarFallback>
+                </Avatar>
+              ) : (
+                <UserCircle2Icon className="size-4" />
+              )}
+
+              <Label>
+                {userData.data.user.app_metadata.provider === "github"
+                  ? userData.data.user.user_metadata.user_name
+                  : userData.data.user.email}
+              </Label>
               <ChevronDown className="size-4" />
             </div>
           </Button>

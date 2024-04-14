@@ -35,7 +35,6 @@ export async function signupUser(formData: FormData) {
         .delete()
         .eq("email", data.email);
       if (error) {
-        console.log(error);
       }
     } else {
       return error;
@@ -53,7 +52,6 @@ export async function loginUser(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
   if (error) {
     toast.error("Failed to login");
-    console.log(error);
     return error;
   } else {
     toast.success("Login succesfully, Welcome back 🥳");

@@ -7,9 +7,10 @@ import { Separator } from "@/components/ui/separator";
 import Google from "@/components/vectors/googleVector";
 import { LogoApp } from "@/components/vectors/logo";
 import { signupUser } from "@/lib/supabase/actions";
+import { createClient } from "@/lib/supabase/supaclient";
 import { Eye, EyeOff, Github, Loader2, LogIn } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export const RegisterForm = () => {
@@ -33,6 +34,18 @@ export const RegisterForm = () => {
     }
 
     setIsLoading(false);
+  }
+
+  async function githubHandler() {
+    const supabase = createClient();
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+    });
+    if (error) {
+      toast.error("Unable to use github 😭");
+    } else {
+      toast.success("Login succesfully, Welcome back 🥳");
+    }
   }
 
   return (
@@ -116,7 +129,7 @@ export const RegisterForm = () => {
           variant={"outline"}
           size={"default"}
           className="w-full items-center justify-center flex gap-x-2"
-          onClick={() => {}}
+          onClick={githubHandler}
         >
           Register with Github
           <Github className="size-4" />

@@ -36,8 +36,6 @@ export const Header = () => {
     fetchUser();
   }, []);
 
-  console.log(user);
-
   return (
     <header className="w-full h-14 px-5 md:px-7 lg:px-14 xl:px-36 py-3 items-center justify-between flex border-b fixed top-0 bg-background/50 backdrop-blur-sm z-[999]">
       <Link
@@ -64,7 +62,7 @@ export const Header = () => {
         <Button variant={"outline"} size={"sm"} asChild>
           <Link href={"/leaderboard"}>Leaderboard</Link>
         </Button>
-        {(user && <UserDropdown username={user.email} />) ||
+        {(user && <UserDropdown username={user} />) ||
           (isLoading && (
             <Button
               variant={"secondary"}
@@ -83,7 +81,7 @@ export const Header = () => {
         <Separator orientation="vertical" className="rounded-full" />
         <ModeToggle />
       </div>
-      <NavMobile />
+      <NavMobile user={user} />
     </header>
   );
 };

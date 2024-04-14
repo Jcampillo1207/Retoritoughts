@@ -33,7 +33,7 @@ const Reset = () => {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: "localhost:3000/auth-reset/password",
+        redirectTo: "https://retoritoughts.vercel.app/auth-reset/password",
       });
       if (error) {
         toast.error(`Error: ${error.message}`);
@@ -102,9 +102,7 @@ const Reset = () => {
       <Card className="w-full max-w-2xl p-5 md:p-7 lg:p-10 rounded-2xl">
         <CardHeader>
           <div className="mt-0">
-            <CardTitle className="mt-0">
-              Password recovery
-            </CardTitle>
+            <CardTitle className="mt-0">Password recovery</CardTitle>
             <CardDescription className="mt-5">
               {state === "mail"
                 ? "Enter your email to receive a reset password link"
