@@ -56,7 +56,7 @@ export const LoginForm = () => {
 
   return (
     <div className="w-full h-fit items-start flex justify-start bg-accent/70 backdrop-blur-sm border p-5 md:p-7 flex-col rounded-2xl">
-      <div className="w-full h-fit items-center justify-start flex gap-x-3 pb-10">
+      <div className="w-full h-fit items-center justify-start flex gap-x-3 pb-5 md:pb-10">
         <LogoApp className="size-8" />
         <h1 className="text-xl md:text-2xl lg:text-3xl antialiased font-bold">
           Log in
@@ -65,7 +65,7 @@ export const LoginForm = () => {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="w-full h-fit items-start justify-start gap-y-7 flex flex-col pb-5"
+        className="w-full h-fit items-start justify-start gap-y-3 md:gap-y-7 flex flex-col pb-3 md:pb-5"
       >
         {/* Input Mail */}
         <div className="w-full h-fit items-start justify-start gap-y-4 flex flex-col">
@@ -112,7 +112,7 @@ export const LoginForm = () => {
         </Button>
       </form>
       <Separator className="w-full" orientation="horizontal" />
-      <div className="w-full h-fit items-start justify-start flex flex-col gap-y-5 pt-5">
+      <div className="w-full h-fit items-start justify-start flex flex-col gap-y-3 md:gap-y-5 pt-3 md:pt-5">
         {/* Button Github */}
         <Button
           variant={"outline"}
