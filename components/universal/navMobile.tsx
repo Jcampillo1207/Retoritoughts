@@ -86,7 +86,7 @@ export const NavMobile = ({ user }: { user: any }) => {
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1">
                     <AccordionTrigger>
-                      <div className="w-fit flex items-center justify-center gap-x-2">
+                      <div className="w-fit flex items-center justify-center gap-x-2 text-muted-foreground text-sm">
                         <Avatar className="size-4">
                           <AvatarImage src={user.user_metadata.avatar_url} />
                           <AvatarFallback asChild>
@@ -101,10 +101,10 @@ export const NavMobile = ({ user }: { user: any }) => {
                         <Separator />
                         <SheetClose asChild>
                           <Button
-                            variant={"ghost"}
+                            variant={"outline"}
                             size={"lg"}
                             asChild
-                            className="w-full items-center justify-between"
+                            className="w-full items-center justify-between text-muted-foreground"
                           >
                             <Link href={"/main/score"}>
                               My Score
