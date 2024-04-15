@@ -64,6 +64,8 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
     checkAuthStatus();
   }, [username]);
 
+  console.log(userData);
+
   if (userData === undefined) {
     return (
       <Button
@@ -82,23 +84,22 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="sm">
             <div className="flex items-center justify-start gap-x-2">
-              {userData.data.user.app_metadata.provider === "github" ? (
-                <Avatar className="size-4">
-                  <AvatarImage
-                    src={userData.data.user.user_metadata.avatar_url}
-                  />
-                  <AvatarFallback asChild>
-                    <div className="bg-primary size-4 rounded-full"></div>
-                  </AvatarFallback>
-                </Avatar>
-              ) : (
-                <UserCircle2Icon className="size-4" />
-              )}
-
+              <Avatar className="size-4">
+                <AvatarImage
+                  src={
+                    userData.data.user.user_metadata.avatar_url ||
+                    userData.data.user.user_metadata.picture ||
+                    "/logoret.svg"
+                  }
+                />
+                <AvatarFallback asChild>
+                  <div className="bg-primary size-4 rounded-full"></div>
+                </AvatarFallback>
+              </Avatar>
               <Label>
-                {userData.data.user.app_metadata.provider === "github"
-                  ? userData.data.user.user_metadata.user_name
-                  : userData.data.user.email}
+                {userData.data.user.user_metadata.user_name ||
+                  userData.data.user.user_metadata.full_name ||
+                  userData.data.user.email}
               </Label>
               <ChevronDown className="size-4" />
             </div>

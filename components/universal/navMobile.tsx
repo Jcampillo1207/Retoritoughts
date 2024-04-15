@@ -9,7 +9,9 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "../ui/button";
 import {
+  Award,
   ChevronRight,
+  Gamepad2,
   Github,
   LayoutDashboard,
   LogOut,
@@ -64,33 +66,9 @@ export const NavMobile = ({ user }: { user: any }) => {
       <SheetContent side={"bottom"} className="max-h-[80%] overflow-scroll">
         <div className="w-full h-fit items-start justify-between flex flex-col gap-y-5 pb-5">
           <div className="w-full h-fit items-start justify-start flex flex-col gap-y-5 pb-5">
-            <div className="w-full h-fit items-start justify-start flex flex-col gap-y-3 pb-5">
-              <p className="text-xl font-bold pb-3">Navigation</p>
-              <SheetClose asChild>
-                <Button
-                  variant={"outline"}
-                  size={"lg"}
-                  asChild
-                  className="w-full flex items-center justify-between px-4 text-muted-foreground"
-                >
-                  <Link href={"/submit"}>
-                    Submit an event <ChevronRight className="size-4" />
-                  </Link>
-                </Button>
-              </SheetClose>
-              <SheetClose asChild>
-                <Button
-                  variant={"outline"}
-                  size={"lg"}
-                  asChild
-                  className="w-full flex items-center justify-between px-4 text-muted-foreground"
-                >
-                  <Link href={"/submit"}>
-                    Leaderboard <ChevronRight className="size-4" />
-                  </Link>
-                </Button>
-              </SheetClose>
-              {user !== undefined ? (
+            <div className="w-full h-fit items-start justify-start flex flex-col gap-y-3 pb-5 relative">
+              <p className="text-xl font-bold pb-3 w-full h-fit bg-background sticky top-0 z-50 border-b">Navigation</p>
+              {user && (
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1">
                     <AccordionTrigger>
@@ -98,14 +76,18 @@ export const NavMobile = ({ user }: { user: any }) => {
                         <Avatar className="size-4">
                           <AvatarImage
                             src={
-                              user.user_metadata.avatar_url || "/logoret.svg"
+                              user.user_metadata.avatar_url ||
+                              user.user_metadata.picture ||
+                              "/logoret.svg"
                             }
                           />
                           <AvatarFallback asChild>
                             <div className="bg-primary size-4 rounded-full"></div>
                           </AvatarFallback>
                         </Avatar>
-                        {user.user_metadata.user_name || user.email}
+                        {user.user_metadata.user_name ||
+                          user.user_metadata.full_name ||
+                          user.email}
                       </div>
                     </AccordionTrigger>
                     <AccordionContent>
@@ -137,6 +119,32 @@ export const NavMobile = ({ user }: { user: any }) => {
                             </Link>
                           </Button>
                         </SheetClose>
+                        <SheetClose asChild>
+                          <Button
+                            variant={"outline"}
+                            size={"lg"}
+                            asChild
+                            className="w-full items-center justify-between text-muted-foreground"
+                          >
+                            <Link href={"/main/Leaderboard"}>
+                              Leaderboard
+                              <Award className="size-4" />
+                            </Link>
+                          </Button>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Button
+                            variant={"default"}
+                            size={"lg"}
+                            asChild
+                            className="w-full items-center justify-between"
+                          >
+                            <Link href={"/main/play"}>
+                              Play
+                              <Gamepad2 className="size-4" />
+                            </Link>
+                          </Button>
+                        </SheetClose>
                         <Separator />
                         <SheetClose asChild>
                           <Button
@@ -157,7 +165,7 @@ export const NavMobile = ({ user }: { user: any }) => {
                             size={"lg"}
                             asChild
                             onClick={handleLogout}
-                            className="w-full items-center justify-between"
+                            className="w-full items-center justify-between cursor-pointer border text-destructive border-destructive hover:bg-destructive/40 bg-transparent"
                           >
                             <div>
                               Logout
@@ -169,19 +177,46 @@ export const NavMobile = ({ user }: { user: any }) => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              ) : (
-                <SheetClose asChild>
-                  <Button
-                    variant={"default"}
-                    size={"lg"}
-                    asChild
-                    className="w-full flex items-center justify-between px-4"
-                  >
-                    <Link href={"/auth"}>
-                      Log in <ChevronRight className="size-4" />
-                    </Link>
-                  </Button>
-                </SheetClose>
+              )}
+              {(user && <></>) || (
+                <>
+                  <SheetClose asChild>
+                    <Button
+                      variant={"outline"}
+                      size={"lg"}
+                      asChild
+                      className="w-full flex items-center justify-between px-4 text-muted-foreground"
+                    >
+                      <Link href={"/submit"}>
+                        Submit an event <ChevronRight className="size-4" />
+                      </Link>
+                    </Button>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Button
+                      variant={"outline"}
+                      size={"lg"}
+                      asChild
+                      className="w-full flex items-center justify-between px-4 text-muted-foreground"
+                    >
+                      <Link href={"/submit"}>
+                        Leaderboard <ChevronRight className="size-4" />
+                      </Link>
+                    </Button>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Button
+                      variant={"default"}
+                      size={"lg"}
+                      asChild
+                      className="w-full flex items-center justify-between px-4"
+                    >
+                      <Link href={"/auth"}>
+                        Log in <ChevronRight className="size-4" />
+                      </Link>
+                    </Button>
+                  </SheetClose>
+                </>
               )}
             </div>
             <Separator orientation="horizontal" />
