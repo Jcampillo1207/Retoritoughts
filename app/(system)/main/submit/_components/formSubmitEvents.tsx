@@ -14,7 +14,7 @@ export const FormSubmitEvents = () => {
   const [imageSrc, setImageSrc] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [era, setEra] = useState(false);
+  const [era, setEra] = useState(true);
   const router = useRouter();
 
   const handleImageChange = (e: any) => {
