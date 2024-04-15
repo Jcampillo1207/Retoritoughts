@@ -1,18 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
-import { NavBarMain } from "../_components/navbarMain";
 
-export default async function MainPage() {
-  const supabase = createClient();
 
-  const { data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
-    redirect("/auth");
-  }
-
+export default function MainPage() {
   return (
-    <main className="w-full h-screen items-center justify-center">
-      <NavBarMain />
+    <main className="w-full h-fit min-h-[calc(100dvh_-_56px)] lg:h-[calc(100dvh_-_56px)] items-center justify-center">
     </main>
   );
 }

@@ -11,9 +11,7 @@ type CardData = {
   year: number;
   BCE: boolean;
   title: string;
-  image: {
-    publicUrl: string;
-  };
+  imageUrl: string;
 };
 
 interface StoryCardProps {
@@ -35,7 +33,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
 }) => {
   return (
     <>
-      {card !== undefined && card !== null ? (
+      {card !== undefined || card !== null ? (
         <div
           className={cn(
             "flex-1 items-start justify-start min-w-full hidden md:flex flex-col md:min-w-[100px] h-fit w-full duration-500 ease-in-out hover:-translate-y-3",
@@ -95,7 +93,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
                   <div className="w-full h-fit items-start justify-start flex">
                     <h1
                       className={cn(
-                        "text-xl md:text-2xl xl:text-2xl antialiased tracking-wide font-semibold hidden text-pretty max-w-[90%]  normal-case",
+                        "text-xl md:text-2xl xl:text-2xl antialiased tracking-wide font-semibold hidden text-pretty max-w-[90%] text-white  normal-case",
                         isActive && "flex"
                       )}
                     >
@@ -106,7 +104,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
                 {isActive && <Progress value={progress} />}
               </div>
               <Image
-                src={card.image && card.image.publicUrl || "/logoret.svg"}
+                src={card.imageUrl && card.imageUrl || "/logoret.svg"}
                 alt="Image"
                 fill
                 className="object-cover transition-all"

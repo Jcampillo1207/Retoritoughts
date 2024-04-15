@@ -14,9 +14,9 @@ import {
 const inter = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Retoritoughts",
+  title: "Retorithoughts",
   description:
-    "Retoritoughts is a trivia game where players must guess whether a historical or fictional event happened before or after another. Test your knowledge in this time and sequence challenge.",
+    "Retorithoughts is a trivia game where players must guess whether a historical or fictional event happened before or after another. Test your knowledge in this time and sequence challenge.",
   icons: [
     {
       url: "/logoret.svg",
@@ -26,11 +26,11 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    url: "retoritoughts.com",
-    title: "Retoritoughts",
+    url: "retorithoughts.com",
+    title: "Retorithoughts",
     description:
-      "Retoritoughts is a trivia game where players must guess whether a historical or fictional event happened before or after another. Test your knowledge in this time and sequence challenge.",
-    siteName: "Retoritoughts",
+      "Retorithoughts is a trivia game where players must guess whether a historical or fictional event happened before or after another. Test your knowledge in this time and sequence challenge.",
+    siteName: "Retorithoughts",
     images: [
       {
         url: `https://uysatyjrbmttzkzisucw.supabase.co/storage/v1/object/public/banner/image.png?t=2024-04-13T06%3A59%3A27.822Z`,

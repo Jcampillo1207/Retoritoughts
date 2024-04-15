@@ -1,49 +1,59 @@
-"use server";
-
-import { error } from "console";
-import { createClient } from "./server";
+import { toast } from "sonner";
+import { createClient } from "./supaclient";
 
 export async function getFrontEvents(eventNum: number) {
   const supabase = await createClient();
-
-  let events = [];
-  const minCeiled = Math.ceil(1);
-  const max = await getNumberOfEvents();
-  let ids = new Set();
-
-  while (ids.size < eventNum) {
-    ids.add(Math.floor(Math.random() * (max! - minCeiled) + minCeiled)!);
-  }
-
-  const idsArray = Array.from(ids);
-  //console.log(idsArray)
-  const queries = idsArray.map((id) =>
-    supabase.from("Events").select("*").eq("id", id).single()
-  );
-
-  events = await Promise.all(queries);
-  return events;
+  const data = await supabase
+    .from("random_events")
+    .select("*")
+    .limit(eventNum);
+  return data
 }
 
-export async function makeEvent(
-  title: string,
-  description: string,
-  year: number,
-  month: number,
-  day: number,
-  BCE: boolean
-) {
+// Sumbit event function
+export async function makeEvent(data: FormData, imageSrc: any, bce: boolean) {
   const supabase = await createClient();
+
+  const imageName = imageSrc.name as string;
+
   const { error } = await supabase.from("Events").insert({
-    title: title,
-    description: description,
-    year: year,
-    month: month,
-    day: day,
-    BCE: BCE,
+    title: data.get("title"),
+    decription: data.get("description"),
+    year: data.get("year"),
+    month: data.get("month"),
+    day: data.get("day"),
+    BCE: bce,
+    image: imageName,
   });
   if (error) {
-    console.log("error");
+    toast.error("There was an error submitting the event");
+    return error;
+  } else {
+    const error = await uploadImage(imageSrc);
+    if (error) {
+      console.log(error);
+      toast.error("Error uploading media");
+      return error;
+    }
+    toast.success(
+      "Succesfully uploaded event, Thank you for your support 🤩😘"
+    );
+  }
+}
+
+// Upload image function
+export async function uploadImage(image: File) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.storage
+    .from("eventos")
+    .upload(image.name, image, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+  if (error) {
+    return error;
+  } else {
+    console.log(data);
   }
 }
 
@@ -84,30 +94,26 @@ export async function getUserInfo(email: string) {
 
 export async function updateScore(score: number, email: string) {
   const supabase = await createClient();
-  console.log(email);
 
-  let scores = await supabase
-    .from("User")
-    .select("*")
-    .eq("email", email);
+  let scores = await supabase.from("User").select("*").eq("email", email);
 
   console.log(scores);
 
-  if (error) {
-    return error;
-  } else {
-      // const realScore = data![0].max_score;
-      // if (score > realScore) {
-      //   const { data, error } = await supabase
-      //     .from("User")
-      //     .update({ max_score: score })
-      //     .eq("email", email)
-      //     .select();
-      //   if (error) {
-      //     return error;
-      //   } else {
-      //     return data;
-      //   }
-      // }
-  }
+  // if (error) {
+  //   return error;
+  // } else {
+  // const realScore = data![0].max_score;
+  // if (score > realScore) {
+  //   const { data, error } = await supabase
+  //     .from("User")
+  //     .update({ max_score: score })
+  //     .eq("email", email)
+  //     .select();
+  //   if (error) {
+  //     return error;
+  //   } else {
+  //     return data;
+  //   }
+  // }
+  // }
 }

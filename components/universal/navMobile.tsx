@@ -8,7 +8,15 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "../ui/button";
-import { ChevronRight, Github, LogOut, Menu, Trophy } from "lucide-react";
+import {
+  ChevronRight,
+  Github,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Trophy,
+  Upload,
+} from "lucide-react";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { ModeToggle } from "../helpers/themeToggle";
@@ -82,22 +90,53 @@ export const NavMobile = ({ user }: { user: any }) => {
                   </Link>
                 </Button>
               </SheetClose>
-              {user !== undefined && user.app_metadata.provider === "github" ? (
+              {user !== undefined ? (
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1">
                     <AccordionTrigger>
                       <div className="w-fit flex items-center justify-center gap-x-2 text-muted-foreground text-sm">
                         <Avatar className="size-4">
-                          <AvatarImage src={user.user_metadata.avatar_url} />
+                          <AvatarImage
+                            src={
+                              user.user_metadata.avatar_url || "/logoret.svg"
+                            }
+                          />
                           <AvatarFallback asChild>
                             <div className="bg-primary size-4 rounded-full"></div>
                           </AvatarFallback>
                         </Avatar>
-                        {user.user_metadata.user_name}
+                        {user.user_metadata.user_name || user.email}
                       </div>
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="w-full h-fit items-start justify-start flex flex-col gap-y-4">
+                        <Separator />
+                        <SheetClose asChild>
+                          <Button
+                            variant={"outline"}
+                            size={"lg"}
+                            asChild
+                            className="w-full items-center justify-between text-muted-foreground"
+                          >
+                            <Link href={"/main"}>
+                              Dashboard
+                              <LayoutDashboard className="size-4" />
+                            </Link>
+                          </Button>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Button
+                            variant={"outline"}
+                            size={"lg"}
+                            asChild
+                            className="w-full items-center justify-between text-muted-foreground"
+                          >
+                            <Link href={"/main/submit"}>
+                              Submit event
+                              <Upload className="size-4" />
+                            </Link>
+                          </Button>
+                        </SheetClose>
                         <Separator />
                         <SheetClose asChild>
                           <Button

@@ -6,7 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Google from "@/components/vectors/googleVector";
 import { LogoApp } from "@/components/vectors/logo";
-import { githubHandler, loginUser } from "@/lib/supabase/actions";
+import {
+  githubHandler,
+  googleHandler,
+  loginUser,
+} from "@/lib/supabase/actions";
 import { createClient } from "@/lib/supabase/supaclient";
 
 import { Eye, EyeOff, Github, Loader2, LogIn } from "lucide-react";
@@ -30,7 +34,6 @@ export const LoginForm = () => {
     const formData = new FormData(event.currentTarget);
     const error = await loginUser(formData);
     if (error) {
-      console.log(error);
     } else {
       router.push("/");
     }
@@ -89,6 +92,7 @@ export const LoginForm = () => {
           <Button
             variant={"default"}
             size={"default"}
+            disabled={(isLoading && true) || false}
             className="w-full items-center justify-center flex gap-x-2"
             type="submit"
           >
@@ -109,7 +113,7 @@ export const LoginForm = () => {
             size={"icon"}
             type="button"
             className="items-center justify-center flex md:hidden aspect-square size-10"
-            onClick={() => {}}
+            onClick={googleHandler}
           >
             <Google className="size-4" />
           </Button>
@@ -132,7 +136,7 @@ export const LoginForm = () => {
           variant={"outline"}
           size={"default"}
           className="w-full items-center justify-center gap-x-2 hidden md:flex"
-          onClick={() => {}}
+          onClick={googleHandler}
         >
           Log in with Google
           <Google className="size-4" />

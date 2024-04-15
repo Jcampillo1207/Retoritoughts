@@ -1,6 +1,9 @@
 "use client";
 
+import { ModeToggle } from "@/components/helpers/themeToggle";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { NavMobile } from "@/components/universal/navMobile";
 import { UserDropdown } from "@/components/universal/userDropdown";
 import { Logo, LogoApp } from "@/components/vectors/logo";
 import { updateScore } from "@/lib/supabase/events";
@@ -39,20 +42,25 @@ export const NavBarMain = () => {
   }
 
   return (
-    <header className="w-full h-14 px-5 md:px-7 lg:px-14 xl:px-36 py-3 items-center justify-between flex border-b fixed top-0 bg-background/50 backdrop-blur-sm z-[999]">
+    <header className="w-full h-14 px-5 md:px-7 py-3 items-center justify-between flex border-b bg-background/50 backdrop-blur-sm z-[999] sticky top-0">
       <Link
         href={"/"}
         className="h-full w-auto flex items-center justify-start gap-x-2"
       >
         <Logo />
         <p className="text-foreground text-lg antialiased font-bold">
-          Retoritoughts
+          Retorithoughts
         </p>
       </Link>
-      <UserDropdown username={userData} />
-      <Button variant="default" onClick={handlescore}>
+      <div className="h-full items-center justify-end gap-x-2 hidden md:flex">
+        <UserDropdown username={userData} />
+        <Separator orientation="vertical" />
+        <ModeToggle />
+      </div>
+      <NavMobile user={userData} />
+      {/* <Button variant="default" onClick={handlescore}>
         maxScore
-      </Button>
+      </Button> */}
     </header>
   );
 };

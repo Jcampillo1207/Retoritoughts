@@ -13,14 +13,15 @@ import {
 import { Button } from "../ui/button";
 import {
   ChevronDown,
+  LayoutDashboard,
   Loader2,
   LogOut,
   Trophy,
+  Upload,
   UserCircle2Icon,
 } from "lucide-react";
 import { Label } from "../ui/label";
 import { createClient } from "@/lib/supabase/supaclient";
-import { getUserInfo } from "@/lib/supabase/events";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 interface UserDropdownProps {
@@ -103,14 +104,39 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
             </div>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-[200px] space-y-2">
+        <DropdownMenuContent align="end" className="w-[250px] space-y-2">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <Button
+              onClick={() => router.push("/main")}
+              variant="ghost"
+              size="sm"
+              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground"
+              disabled={loading}
+            >
+              Dashboard
+              <LayoutDashboard className="size-4" />
+            </Button>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <Button
+              onClick={() => router.push("/main/submit")}
+              variant="ghost"
+              size="sm"
+              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground"
+              disabled={loading}
+            >
+              Submit event
+              <Upload className="size-4" />
+            </Button>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild className="cursor-pointer">
             <Button
               variant="ghost"
               size="sm"
-              className="flex gap-x-2 w-full justify-between cursor-pointer"
+              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground"
               disabled={loading}
             >
               My score

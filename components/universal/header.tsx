@@ -43,7 +43,6 @@ export const Header = () => {
         .from("User")
         .select("*")
         .eq("email", user.email);
-      console.log(data);
       if (error) {
         console.log(error);
       } else {
@@ -52,13 +51,12 @@ export const Header = () => {
             .from("User")
             .insert({ email: user.email, username: user.email });
           if (error) {
-            console.log(error);
+           
           }
         }
       }
     };
 
-    console.log(user);
     if (user) {
       checkUser();
     }
@@ -72,7 +70,7 @@ export const Header = () => {
       >
         <Logo />
         <p className="text-foreground text-lg antialiased font-bold">
-          Retoritoughts
+          Retorithoughts
         </p>
       </Link>
       <div className="w-fit h-full items-center justify-end gap-x-2 hidden lg:flex">
