@@ -74,7 +74,7 @@ export const FormSubmitEvents = () => {
         <Label className="w-full h-fit">
           Image:<span className="text-destructive">*</span>
         </Label>
-        <div className="w-full col-span-1 lg:col-span-2 flex flex-col gap-3">
+        <div className="w-full col-span-1 lg:col-span-2 flex flex-col gap-3 overflow-hidden max-w-full">
           <div
             className="w-full aspect-video border bg-background rounded-2xl"
             style={{
