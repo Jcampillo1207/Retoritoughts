@@ -28,10 +28,6 @@ export const SideBarMain = () => {
     
   };
 
-  async function test() {
-    await updateScore(2, "montanopatricio.pereyra@gmail.com")
-  }
-
   return (
     <>
       <div className="w-full h-full items-start justify-start flex flex-col gap-y-1">
@@ -70,9 +66,6 @@ export const SideBarMain = () => {
         >
           Log out
           <LogOut className="size-4" />
-        </Button>
-        <Button onClick={test}>
-
         </Button>
       </div>
     </>
