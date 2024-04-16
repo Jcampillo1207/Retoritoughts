@@ -1,26 +1,49 @@
 import { cn } from "@/lib/utils";
 import { SideBarMain } from "./_components/sidebarMain";
 import Link from "next/link";
-const modes: { title: string; value: string; disabled: boolean }[] = [
+import Icon from "@/components/helpers/icons";
+import { ChevronRight } from "lucide-react";
+const modes: {
+  title: string;
+  value: string;
+  disabled: boolean;
+  icon: string;
+}[] = [
   {
     title: "Classic",
-    value: "/play",
+    value: "play",
     disabled: false,
+    icon: "Shapes",
+  },
+  {
+    title: "Age Matcher",
+    value: "matcher",
+    disabled: false,
+    icon: "Baby",
+  },
+  {
+    title: "Realistic",
+    value: "realistic",
+    disabled: false,
+    icon: "BookMarked",
   },
   {
     title: "Frenzy",
-    value: "/frenzy",
+    value: "frenzy",
     disabled: true,
+    icon: "Timer",
   },
   {
-    title: "MoneyLine",
-    value: "/moneyline",
+    title: "MoneyUp",
+    value: "moneyup",
     disabled: true,
+    icon: "Coins",
   },
   {
-    title: "MoneyLine",
-    value: "/moneyline",
+    title: "Arcade",
+    value: "arcade",
     disabled: true,
+    icon: "Joystick",
   },
 ];
 
@@ -38,20 +61,40 @@ export default function MainPage() {
                 href={(mode.disabled && "#") || `main/${mode.value}`}
                 key={index}
                 className={cn(
-                  "w-auto flex-1 h-auto aspect-video items-center p-5 lg:p-7 min-w-[200px] md:min-w-[300px] max-w-[500px] rounded-2xl bg-background hover:outline outline-offset-4 outline-primary relative overflow-hidden",
+                  "w-auto flex-1 h-auto group aspect-square md:aspect-video items-center p-5 transition-all min-w-[200px] md:min-w-[300px] max-w-[500px] rounded-2xl bg-background hover:outline outline-offset-4 outline-primary relative overflow-hidden",
                   (mode.disabled &&
-                    "bg-background cursor-not-allowed text-muted-foreground/50 outline-none outline-transparent") ||
+                    "bg-background cursor-not-allowed text-muted dark:text-muted/50 outline-none outline-transparent") ||
                     "cursor-pointer border"
                 )}
               >
-                <div className="z-0">{mode.title}</div>
                 <div
                   className={cn(
-                    "w-full h-full items-center justify-center tracking-wide bg-muted/5 backdrop-blur-[1px] absolute top-0 left-0 z-20 text-foreground/50 text-xl md:text-2xl antialiased font-bold",
+                    "z-10 text-lg md:text-2xl font-semibold antialiased text-muted-foreground group-hover:text-primary w-full flex justify-between items-center",
+                    mode.disabled && "group-hover:text-muted-foreground"
+                  )}
+                >
+                  {mode.title}
+                  <ChevronRight className="size-4" />
+                </div>
+                <div className="h-full absolute z-0 aspect-square botom-0 translate-y-5 md:translate-y-2 right-0">
+                  <Icon
+                    className={cn(
+                      "size-full aspect-square text-muted-foreground group-hover:text-primary",
+                      mode.disabled &&
+                        "group-hover:text-muted dark:group-hover:text-muted text-muted"
+                    )}
+                    name={mode.icon}
+                  />
+                </div>
+                <div
+                  className={cn(
+                    "w-full h-full items-center justify-center tracking-wide bg-muted/5 backdrop-blur-[3px] absolute top-0 left-0 z-20 text-foreground/50 text-xl md:text-2xl lg:text-3xl antialiased font-bold",
                     (mode.disabled && "flex") || "hidden"
                   )}
                 >
-                  Coming Soon
+                  <p className="-rotate-12 w-full h-fit py-1 flex items-center justify-center">
+                    Coming Soon
+                  </p>
                 </div>
               </Link>
             );

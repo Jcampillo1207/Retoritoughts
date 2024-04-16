@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { makeEvent } from "@/lib/supabase/events";
 import { Loader2, Upload } from "lucide-react";
+import { revalidatePath } from "next/cache";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -40,6 +41,7 @@ export const FormSubmitEvents = () => {
       setIsLoading(false);
     } else {
       setIsLoading(false);
+      router.refresh;
     }
   }
 
