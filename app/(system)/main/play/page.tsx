@@ -140,7 +140,7 @@ export default function PlayPage() {
           </div>
         </div>
       </section>
-      <section className="flex items-start justify-start px-5 md:px-7 py-10 bg-muted dark:bg-muted/10 flex-1 w-full h-full max-h-full flex-col gap-y-10 lg:gap-y-10 overflow-y-scroll">
+      <section className="flex items-start justify-start px-5 md:px-7 py-5 lg:py-10 bg-muted dark:bg-muted/10 flex-1 w-full h-full max-h-full flex-col gap-y-5 lg:gap-y-10 overflow-y-scroll">
         <div className="w-full h-fit items-center justify-between gap-x-5 flex">
           <h1 className="text-xl md:text-2xl lg:text-3xl antialiased font-bold tracking-wide max-w-sm flex text-pretty">
             Which historical event happened first?
@@ -152,10 +152,10 @@ export default function PlayPage() {
             className="shrink-0"
             onClick={checkAnswerSelected}
           >
-            Continue
+            Confirm
           </Button>
         </div>
-        <div className="w-full h-full flex-1 items-center justify-center gap-10 flex-col lg:flex-row flex">
+        <div className="w-full h-full flex-1 items-center justify-center gap-3 lg:gap-10 flex-col lg:flex-row flex">
           {(images &&
             images.map((item, index) => (
               <React.Fragment key={index}>
@@ -200,7 +200,7 @@ export default function PlayPage() {
         </div>
       </section>
       {lose && (
-        <div className="w-full h-full z-[9999] bg-muted/15 backdrop-blur-sm flex items-center justify-center fixed top-0 left-0 px-5 md:px-7 lg:px-14">
+        <div className="w-full h-full z-[9999] bg-muted/50 backdrop-blur-md flex items-center justify-center fixed top-0 left-0 px-5 md:px-7 lg:px-14">
           <div className="w-full max-w-4xl bg-background border p-5 md:p-7 rounded-2xl h-fit flex flex-col gap-y-7 lg:gap-y-7">
             <h1 className="text-lg font-bold md:text-xl lg:text-2xl max-w-sm text-pretty mb-5 lg:mb-7">
               Oops, loks like you need to study more &quot;history&quot;
