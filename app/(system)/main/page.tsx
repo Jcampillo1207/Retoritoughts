@@ -16,7 +16,7 @@ const modes: {
     icon: "Shapes",
   },
   {
-    title: "Age Matcher",
+    title: "Year Matcher",
     value: "matcher",
     disabled: false,
     icon: "Baby",
