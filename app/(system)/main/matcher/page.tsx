@@ -153,7 +153,7 @@ export default function MatcherPage() {
             {data && (
               <Link
                 href={"/main/submit"}
-                className="rounded-2xl h-fit p-2 border flex-1 max-w-md flex gap-y-5 flex-col hover:border-primary group"
+                className="rounded-2xl h-fit p-2 border flex-1 max-w-md flex gap-y-5 flex-col hover:border-primary group min-w-[300px]"
               >
                 <div className="w-full h-auto aspect-video items-center justify-center flex relative rounded-xl overflow-hidden bg-muted">
                   <Plus className="size-6 group-hover:text-primary" />
