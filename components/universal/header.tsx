@@ -11,10 +11,16 @@ import { useEffect, useState } from "react";
 
 import { UserDropdown } from "./userDropdown";
 import { createClient } from "@/lib/supabase/supaclient";
+import { insertUser } from "@/lib/supabase/actions";
 
 export const Header = () => {
   const [user, setUser] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
+
+  const dbUser = {
+    email: "",
+    username: ""
+  }
 
   useEffect(() => {
     const supabase = createClient();
@@ -26,6 +32,13 @@ export const Header = () => {
           console.error("Error fetching user:", error);
         } else {
           setUser(data?.user);
+          if (data?.user.user_metadata.name) {
+            dbUser.username = data?.user.user_metadata.name
+          } else if (data?.user.user_metadata.user_name) {
+            dbUser.username = data?.user.user_metadata.user_name
+          }
+          dbUser.email = data?.user.email as string;
+          insertUser(dbUser);
         }
       } catch (error) {
         console.error("Unexpected error:", error);
