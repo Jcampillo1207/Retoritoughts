@@ -23,11 +23,14 @@ export const SideBarMain = () => {
       toast.error("Error during logout");
       return error;
     }
-    updateScore(1, "")
     router.push("/auth");
     setIsLoading(false);
     
   };
+
+  async function test() {
+    await updateScore(2, "montanopatricio.pereyra@gmail.com")
+  }
 
   return (
     <>
@@ -67,6 +70,9 @@ export const SideBarMain = () => {
         >
           Log out
           <LogOut className="size-4" />
+        </Button>
+        <Button onClick={test}>
+
         </Button>
       </div>
     </>
