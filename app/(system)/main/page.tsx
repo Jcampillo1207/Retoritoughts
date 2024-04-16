@@ -19,7 +19,7 @@ const modes: {
     title: "Year Matcher",
     value: "matcher",
     disabled: false,
-    icon: "Baby",
+    icon: "Shuffle",
   },
   {
     title: "Realistic",
