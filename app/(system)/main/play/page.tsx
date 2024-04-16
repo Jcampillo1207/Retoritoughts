@@ -240,7 +240,7 @@ export default function PlayPage() {
                       {item.decription && (
                         <>
                           <Separator />
-                          <p className="tracking-wide text-muted-foreground">
+                          <p className="tracking-wide text-muted-foreground text-xs line-clamp-6">
                             {item.decription}
                           </p>
                         </>
