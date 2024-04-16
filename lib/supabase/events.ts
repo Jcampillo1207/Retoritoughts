@@ -1,16 +1,15 @@
 import { toast } from "sonner";
 import { createClient } from "./supaclient";
-import { revalidatePath } from "next/cache";
-
 
 // get Random Events
 export async function getFrontEvents(eventNum: number) {
   const supabase = await createClient();
   const data = await supabase
     .from("random_events")
-    .select("*").eq("is_verified", true)
+    .select("*")
+    .eq("is_verified", true)
     .limit(eventNum);
-  return data
+  return data;
 }
 
 // Sumbit event function
@@ -95,7 +94,6 @@ export async function getUserInfo(email: string) {
   }
 }
 
-
 // classic function
 export async function fetchData(numOfEvents: number) {
   try {
@@ -113,11 +111,46 @@ export async function fetchData(numOfEvents: number) {
           }
         })
       );
-      return eventsWithImages
+      return eventsWithImages;
     } else {
-      
     }
-  } catch (error) {
-    
+  } catch (error) {}
+}
+
+//Matcher Function
+
+export async function getMatchedEvents(year: number) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("Events")
+    .select("*")
+    .eq("year", year)
+    .eq("is_verified", true);
+  if (error) {
+    toast.error("Couldnt retrieve data");
+  } else {
+    return data;
+  }
+}
+
+export async function getMatchedImages(year: number) {
+  const response = await getMatchedEvents(year);
+  console.log(response);
+
+  if (response && Array.isArray(response)) {
+    const eventsWithImages = await Promise.all(
+      response.map(async (event: any) => {
+        if (event.image) {
+          const data = await getEventImages(event.image);
+          return { ...event, imageUrl: data.publicUrl };
+        } else {
+          return { ...event, imageUrl: null };
+        }
+      })
+    );
+    return eventsWithImages;
+  } else {
+    toast.error("Invalid response or data format");
   }
 }
