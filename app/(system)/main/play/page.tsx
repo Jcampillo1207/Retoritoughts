@@ -250,7 +250,7 @@ export default function PlayPage() {
                 })}
             </div>
             <Separator />
-            <div className="w-full h-fit items-center justify-end flex gap-x-2">
+            <div className="w-full h-fit items-center justify-end flex gap-2 flex-col md:flex-row">
               <Button
                 variant={"outline"}
                 size={"default"}
@@ -265,7 +265,7 @@ export default function PlayPage() {
                 onClick={handleContinue}
                 className="w-full md:w-fit"
               >
-                Continue
+                Try again
               </Button>
             </div>
           </div>
