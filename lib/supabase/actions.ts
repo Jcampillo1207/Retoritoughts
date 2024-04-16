@@ -90,18 +90,6 @@ export async function loginUser(formData: FormData | any) {
   }
 }
 
-// Logout
-export async function logout() {
-  const supabase = createClient();
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    return error;
-  }
-
-  revalidatePath("/", "layout");
-  redirect("/");
-}
-
 export async function resetPassword(formData: FormData) {
   const password = formData.get("password") as string;
   const supabase = createClient();

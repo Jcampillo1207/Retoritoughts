@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import {
+  Award,
   ChevronDown,
+  Gamepad2,
   LayoutDashboard,
   Loader2,
   LogOut,
@@ -64,8 +66,6 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
     checkAuthStatus();
   }, [username]);
 
-  console.log(userData);
-
   if (userData === undefined) {
     return (
       <Button
@@ -113,7 +113,7 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
               onClick={() => router.push("/main")}
               variant="ghost"
               size="sm"
-              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground"
+              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground px-4"
               disabled={loading}
             >
               Dashboard
@@ -125,11 +125,35 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
               onClick={() => router.push("/main/submit")}
               variant="ghost"
               size="sm"
-              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground"
+              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground px-4"
               disabled={loading}
             >
               Submit event
               <Upload className="size-4" />
+            </Button>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <Button
+              onClick={() => router.push("/main/leaderboard")}
+              variant="ghost"
+              size="sm"
+              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground px-4"
+              disabled={loading}
+            >
+              Leaderboard
+              <Award className="size-4" />
+            </Button>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <Button
+              onClick={() => router.push("/main/play")}
+              variant="default"
+              size="sm"
+              className="flex gap-x-2 w-full justify-between cursor-pointer px-4 focus:bg-primary"
+              disabled={loading}
+            >
+             Play
+              <Gamepad2 className="size-4" />
             </Button>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -137,7 +161,7 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
             <Button
               variant="ghost"
               size="sm"
-              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground"
+              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground px-4"
               disabled={loading}
             >
               My score
@@ -149,7 +173,7 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
               variant="destructive"
               size="sm"
               onClick={handleLogout}
-              className="flex gap-x-2 w-full justify-between cursor-pointer focus:bg-destructive/80 ring-0"
+              className="flex gap-x-2 w-full justify-between cursor-pointer focus:bg-destructive/80 ring-0 px-4"
               disabled={loading}
             >
               Log out

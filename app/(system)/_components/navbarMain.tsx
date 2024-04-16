@@ -6,7 +6,6 @@ import { Separator } from "@/components/ui/separator";
 import { NavMobile } from "@/components/universal/navMobile";
 import { UserDropdown } from "@/components/universal/userDropdown";
 import { Logo, LogoApp } from "@/components/vectors/logo";
-import { updateScore } from "@/lib/supabase/events";
 import { createClient } from "@/lib/supabase/supaclient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -34,12 +33,6 @@ export const NavBarMain = () => {
 
     fetchUser();
   }, []);
-
-  // prueba
-
-  function handlescore() {
-    updateScore(10, userData.email);
-  }
 
   return (
     <header className="w-full h-14 px-5 md:px-7 py-3 items-center justify-between flex border-b bg-background/50 backdrop-blur-sm z-[999] sticky top-0">

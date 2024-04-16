@@ -35,7 +35,7 @@ export const LoginForm = () => {
     const error = await loginUser(formData);
     if (error) {
     } else {
-      router.push("/");
+      router.push("/main");
     }
 
     setIsLoading(false);

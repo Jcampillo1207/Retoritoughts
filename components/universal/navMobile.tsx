@@ -2,9 +2,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "../ui/button";
@@ -63,11 +60,16 @@ export const NavMobile = ({ user }: { user: any }) => {
           <Menu className="size-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"bottom"} className="max-h-[80%] overflow-scroll pt-0">
+      <SheetContent
+        side={"bottom"}
+        className="max-h-[80%] overflow-scroll pt-0"
+      >
         <div className="w-full h-fit items-start justify-between flex flex-col gap-y-5 pb-5">
           <div className="w-full h-fit items-start justify-start flex flex-col gap-y-5 pb-5">
             <div className="w-full h-fit items-start justify-start flex flex-col gap-y-3 pb-5 relative">
-              <p className="text-xl font-bold pb-3 w-full h-fit bg-background sticky top-0 z-50 border-b pt-10">Navigation</p>
+              <p className="text-xl font-bold pb-3 w-full h-fit bg-background sticky top-0 z-50 border-b pt-10">
+                Navigation
+              </p>
               {user && (
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1">
@@ -126,7 +128,7 @@ export const NavMobile = ({ user }: { user: any }) => {
                             asChild
                             className="w-full items-center justify-between text-muted-foreground"
                           >
-                            <Link href={"/main/Leaderboard"}>
+                            <Link href={"/main/leaderboard"}>
                               Leaderboard
                               <Award className="size-4" />
                             </Link>

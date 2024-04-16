@@ -51,7 +51,6 @@ export const Header = () => {
             .from("User")
             .insert({ email: user.email, username: user.email });
           if (error) {
-           
           }
         }
       }
@@ -62,7 +61,6 @@ export const Header = () => {
     }
   }, [user]);
 
-  console.log(user)
   return (
     <header className="w-full h-14 px-5 md:px-7 lg:px-14 xl:px-36 py-3 items-center justify-between flex border-b fixed top-0 bg-background/50 backdrop-blur-sm z-[999]">
       <Link
@@ -83,20 +81,18 @@ export const Header = () => {
             <Github className="size-4" />
           </Link>
         </Button>
-        <Button variant={"outline"} size={"sm"} asChild>
-          <Link href={"/submit"}>
-            {user !== undefined && user !== null
-              ? "Submit events"
-              : "Login to submit events"}
-          </Link>
-        </Button>
-        <Button variant={"outline"} size={"sm"} asChild>
-          <Link href={"/leaderboard"}>Leaderboard</Link>
-        </Button>
         {(user && <UserDropdown username={user} />) || (
-          <Button variant="default" size="sm" asChild>
-            <Link href="/auth">Log in</Link>
-          </Button>
+          <>
+            <Button variant={"outline"} size={"sm"} asChild>
+              <Link href={"/submit"}>Login to submit events</Link>
+            </Button>
+            <Button variant={"outline"} size={"sm"} asChild>
+              <Link href={"/leaderboard"}>Leaderboard</Link>
+            </Button>
+            <Button variant="default" size="sm" asChild>
+              <Link href="/auth">Log in</Link>
+            </Button>
+          </>
         )}
         <Separator orientation="vertical" className="rounded-full" />
         <ModeToggle />

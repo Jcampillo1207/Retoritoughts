@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { makeEvent } from "@/lib/supabase/events";
 import { Loader2, Upload } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const FormSubmitEvents = () => {
@@ -16,6 +16,7 @@ export const FormSubmitEvents = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [era, setEra] = useState(true);
   const router = useRouter();
+  const path = usePathname();
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
@@ -36,9 +37,9 @@ export const FormSubmitEvents = () => {
     const error = await makeEvent(formData, imageFile, era);
     if (error) {
       console.log("error");
+      setIsLoading(false);
     } else {
       setIsLoading(false);
-      router.refresh();
     }
   }
 
