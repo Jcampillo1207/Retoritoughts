@@ -125,7 +125,7 @@ export default function PlayPage() {
             </Button>
           </>
         )}
-        <div className="w-fit h-fit items-start justify-start flex flex-col gap-y-1">
+        <div className="w-full h-fit items-start justify-start flex flex-col gap-y-1">
           <div className="w-fit lg:w-full h-fit border rounded-lg lg:rounded-2xl px-5 py-2 lg:py-5 text-sm flex flex-row lg:flex-col gap-2 lg:gap-7 items-center lg:items-start justify-start">
             <p className="text-muted-foreground lg:text-lg">Current Score:</p>
             <div className="lg:w-full h-full max-w-[70px] lg:max-w-[calc(250px_-_20px)] items-center justify-center flex">

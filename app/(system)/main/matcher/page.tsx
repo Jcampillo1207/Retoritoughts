@@ -74,7 +74,6 @@ export default function MatcherPage() {
                 <Input
                   name="year"
                   id="year"
-                  required
                   type="number"
                   placeholder="YYYY..."
                   max={Number.MAX_SAFE_INTEGER}
