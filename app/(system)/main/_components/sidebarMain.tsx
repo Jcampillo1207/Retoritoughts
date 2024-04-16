@@ -23,7 +23,6 @@ export const SideBarMain = () => {
       toast.error("Error during logout");
       return error;
     }
-    updateScore(1, "")
     router.push("/auth");
     setIsLoading(false);
     
