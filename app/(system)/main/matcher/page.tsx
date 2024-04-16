@@ -104,9 +104,9 @@ export default function MatcherPage() {
           <div className="w-full h-full flex flex-wrap gap-5 min-h-fit items-start justify-start">
             {isLoading ? (
               <>
-                <Skeleton className="w-full h-auto rounded-2xl overflow-hidden aspect-square flex-1 max-w-md" />
-                <Skeleton className="w-full h-auto rounded-2xl overflow-hidden aspect-square flex-1 max-w-md" />
-                <Skeleton className="w-full h-auto rounded-2xl overflow-hidden aspect-square flex-1 max-w-md" />
+                <Skeleton className="w-full h-auto rounded-2xl overflow-hidden aspect-square flex-1 max-w-md min-w-[300px]" />
+                <Skeleton className="w-full h-auto rounded-2xl overflow-hidden aspect-square flex-1 max-w-md min-w-[300px]" />
+                <Skeleton className="w-full h-auto rounded-2xl overflow-hidden aspect-square flex-1 max-w-md min-w-[300px]" />
               </>
             ) : (
               data &&
@@ -117,7 +117,7 @@ export default function MatcherPage() {
                 ) => (
                   <div
                     key={item.id}
-                    className="rounded-2xl h-fit p-2 border flex-1 max-w-md flex gap-y-5 flex-col"
+                    className="rounded-2xl h-fit p-2 border flex-1 max-w-md flex gap-y-5 flex-col min-w-[300px]"
                   >
                     <div className="w-full h-auto aspect-video items-center justify-center flex relative rounded-xl overflow-hidden">
                       <Image
