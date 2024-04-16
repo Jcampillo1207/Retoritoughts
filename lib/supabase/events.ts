@@ -8,7 +8,7 @@ export async function getFrontEvents(eventNum: number) {
   const supabase = await createClient();
   const data = await supabase
     .from("random_events")
-    .select("*")
+    .select("*").eq("is_verified", true)
     .limit(eventNum);
   return data
 }
@@ -92,5 +92,32 @@ export async function getUserInfo(email: string) {
     return error;
   } else {
     return User;
+  }
+}
+
+
+// classic function
+export async function fetchData(numOfEvents: number) {
+  try {
+    const response = await getFrontEvents(numOfEvents);
+
+    if (response.data && Array.isArray(response.data)) {
+      const eventsWithImages = await Promise.all(
+        response.data.map(async (event: any) => {
+          if (event.image) {
+            const data = await getEventImages(event.image);
+
+            return { ...event, imageUrl: data.publicUrl };
+          } else {
+            return { ...event, imageUrl: null };
+          }
+        })
+      );
+      return eventsWithImages
+    } else {
+      
+    }
+  } catch (error) {
+    
   }
 }

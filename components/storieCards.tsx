@@ -4,7 +4,7 @@ import StoryCard from "./storyCard";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { ArrowLeft, ArrowRight, RefreshCcw } from "lucide-react";
-import { getEventImages, getFrontEvents } from "@/lib/supabase/events";
+import { fetchData, getEventImages, getFrontEvents } from "@/lib/supabase/events";
 import { Skeleton } from "./ui/skeleton";
 
 export const StorieCards = () => {
@@ -21,36 +21,13 @@ export const StorieCards = () => {
   const skeletonCount = 4
 
   useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      try {
-        const response = await getFrontEvents(skeletonCount); // Asuming getFrontEvents uses Supabase
-
-        if (response.data && Array.isArray(response.data)) {
-          const eventsWithImages = await Promise.all(
-            response.data.map(async (event: any) => {
-              if (event.image) {
-                const data = await getEventImages(event.image);
-
-                return { ...event, imageUrl: data.publicUrl };
-              } else {
-                return { ...event, imageUrl: null };
-              }
-            })
-          );
-
-          setMain(eventsWithImages);
-        } else {
-          throw new Error("Failed to fetch events: Invalid data format");
-        }
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-
-      setIsLoading(false);
+    setIsLoading(true);
+    async function fetch() {
+      const data = await fetchData(skeletonCount);
+      setMain(data);
     }
-
-    fetchData();
+    setIsLoading(false);
+    fetch();
   }, [recharge]);
 
   useEffect(() => {

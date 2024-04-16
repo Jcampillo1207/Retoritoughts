@@ -45,7 +45,7 @@ export const NavBarMain = () => {
           Retorithoughts
         </p>
       </Link>
-      <div className="h-full items-center justify-end gap-x-2 hidden md:flex">
+      <div className="h-full items-center justify-end gap-x-2 hidden lg:flex">
         <UserDropdown username={userData} />
         <Separator orientation="vertical" />
         <ModeToggle />
@@ -57,3 +57,4 @@ export const NavBarMain = () => {
     </header>
   );
 };
+

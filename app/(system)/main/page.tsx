@@ -24,7 +24,7 @@ const modes: {
   {
     title: "Realistic",
     value: "realistic",
-    disabled: false,
+    disabled: true,
     icon: "BookMarked",
   },
   {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { getEventImages, getFrontEvents } from "@/lib/supabase/events";
+import { fetchData, getEventImages, getFrontEvents } from "@/lib/supabase/events";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -11,36 +11,13 @@ export const GridCompanion = () => {
   const skeletonCount = 9;
 
   useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      try {
-        const response = await getFrontEvents(skeletonCount); // Asuming getFrontEvents uses Supabase
-
-        if (response.data && Array.isArray(response.data)) {
-          const eventsWithImages = await Promise.all(
-            response.data.map(async (event: any) => {
-              if (event.image) {
-                const data = await getEventImages(event.image);
-
-                return { ...event, imageUrl: data.publicUrl };
-              } else {
-                return { ...event, imageUrl: null };
-              }
-            })
-          );
-
-          setImages(eventsWithImages);
-        } else {
-          throw new Error("Failed to fetch events: Invalid data format");
-        }
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-
-      setIsLoading(false);
+    setIsLoading(true);
+    async function fetch() {
+      const data = await fetchData(skeletonCount);
+      setImages(data);
     }
-
-    fetchData();
+    setIsLoading(false);
+    fetch();
   }, []);
 
   return (

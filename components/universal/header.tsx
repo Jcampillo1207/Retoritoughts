@@ -59,7 +59,7 @@ export const Header = () => {
     if (user) {
       checkUser();
     }
-  }, [user]);
+  }, []);
 
   return (
     <header className="w-full h-14 px-5 md:px-7 lg:px-14 xl:px-36 py-3 items-center justify-between flex border-b fixed top-0 bg-background/50 backdrop-blur-sm z-[999]">
