@@ -30,7 +30,7 @@ export const SideBarMain = () => {
     <>
       <div className="w-full h-full items-start justify-start flex flex-col gap-y-1">
         <h2 className="text-lg md:text-xl mb-3">Dashboard</h2>
-        <Button
+        {/* <Button
           variant={"ghost"}
           size={"sm"}
           asChild
@@ -40,7 +40,7 @@ export const SideBarMain = () => {
             Leaderboard
             <ChevronRight className="size-4" />
           </Link>
-        </Button>
+        </Button> */}
         <Button
           variant={"ghost"}
           size={"sm"}
@@ -52,7 +52,7 @@ export const SideBarMain = () => {
             <ChevronRight className="size-4" />
           </Link>
         </Button>
-        <Button
+        {/* <Button
           variant={"ghost"}
           size={"sm"}
           asChild
@@ -62,7 +62,7 @@ export const SideBarMain = () => {
             My submissions
             <ChevronRight className="size-4" />
           </Link>
-        </Button>
+        </Button> */}
       </div>
       <div className="w-full h-fit min-h-fit items-start justify-start gap-y-10 flex flex-col">
         <Separator />
