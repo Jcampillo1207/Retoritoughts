@@ -15,9 +15,9 @@ export default async function MainLayout({
   }
 
   return (
-    <body className="w-full h-fit items-center justify-center relative">
+    <main className="w-full h-fit items-center justify-center relative">
       <NavBarMain />
       {children}
-    </body>
+    </main>
   );
 }

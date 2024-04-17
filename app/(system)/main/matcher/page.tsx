@@ -116,7 +116,7 @@ export default function MatcherPage() {
                 ) => (
                   <div
                     key={item.id}
-                    className="rounded-2xl h-fit p-2 border flex-1 max-w-md flex gap-y-5 flex-col min-w-[300px]"
+                    className="rounded-2xl h-fit p-2 border flex-1 lg:max-w-md flex gap-y-5 flex-col min-w-[300px]"
                   >
                     <div className="w-full h-auto aspect-video items-center justify-center flex relative rounded-xl overflow-hidden">
                       <Image

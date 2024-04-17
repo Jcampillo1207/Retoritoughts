@@ -19,6 +19,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { AlertDialogComponent } from "./_components/alertDialog";
+import { Progress } from "@/components/ui/progress";
 
 export default function PlayPage() {
   const [userData, setUserData] = useState<any>();
@@ -117,7 +118,7 @@ export default function PlayPage() {
               variant={"ghost"}
               size={"icon"}
               asChild
-              className="items-center justify-center gap-x-2 text-muted-foreground flex lg:hidden"
+              className="items-center justify-center gap-x-2 text-muted-foreground flex lg:hidden aspect-square"
             >
               <Link href={"/main"}>
                 <ArrowLeft className="size-4" />
@@ -125,22 +126,23 @@ export default function PlayPage() {
             </Button>
           </>
         )}
-        <div className="w-full h-fit items-start justify-start flex flex-col gap-y-1">
+        <div className="w-fit lg:w-full h-fit items-start justify-start flex flex-col gap-y-1">
           <div className="w-fit lg:w-full h-fit border rounded-lg lg:rounded-2xl px-5 py-2 lg:py-5 text-sm flex flex-row lg:flex-col gap-2 lg:gap-7 items-center lg:items-start justify-start">
-            <p className="text-muted-foreground lg:text-lg">Current Score:</p>
+            <p className="text-muted-foreground lg:text-lg w-full text-center">Current Score</p>
             <div className="lg:w-full h-full max-w-[70px] lg:max-w-[calc(250px_-_20px)] items-center justify-center flex">
               <p className="lg:text-5xl antialiased font-bold truncate text-ellipsis">
                 {score}
               </p>
             </div>
           </div>
-          <div className="w-full h-fit px-2 pt-3 mt-3 border-t items-center justify-between gap-x-2 hidden lg:flex">
+          <div className="w-fit lg:w-full h-fit px-2 pt-3 mt-3 border-t items-center justify-between gap-x-2 hidden lg:flex">
             <p className="text-muted-foreground antialiased">Highest Score</p>
             <p className="text-foreground font-bold antialiased">{highscore}</p>
           </div>
         </div>
       </section>
-      <section className="flex items-start justify-start px-5 md:px-7 py-5 lg:py-10 bg-muted dark:bg-muted/10 flex-1 w-full h-full max-h-full flex-col gap-y-5 lg:gap-y-10 overflow-y-scroll">
+      <section className="flex items-start justify-start px-5 md:px-7 py-5 lg:py-10 bg-muted dark:bg-muted/10 flex-1 w-full h-full max-h-full flex-col gap-y-5 lg:gap-y-10 overflow-y-scroll relative">
+        <Progress value={100} className="w-full h-[2px] absolute top-0 left-0 rounded-none"/>
         <div className="w-full h-fit items-center justify-between gap-x-5 flex">
           <h1 className="text-xl md:text-2xl lg:text-3xl antialiased font-bold tracking-wide max-w-sm flex text-pretty">
             Which historical event happened first?

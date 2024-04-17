@@ -13,7 +13,12 @@ export async function getFrontEvents(eventNum: number) {
 }
 
 // Sumbit event function
-export async function makeEvent(data: FormData, imageSrc: any, bce: boolean) {
+export async function makeEvent(
+  data: FormData,
+  imageSrc: any,
+  bce: boolean,
+  email: any
+) {
   const supabase = await createClient();
 
   const imageName = imageSrc.name as string;
@@ -26,6 +31,8 @@ export async function makeEvent(data: FormData, imageSrc: any, bce: boolean) {
     day: data.get("day"),
     BCE: bce,
     image: imageName,
+    is_verified: false,
+    submitter: email.email,
   });
   if (error) {
     toast.error("There was an error submitting the event");
@@ -118,7 +125,6 @@ export async function fetchData(numOfEvents: number) {
 }
 
 //Matcher Function
-
 export async function getMatchedEvents(year: number) {
   const supabase = await createClient();
 
@@ -134,9 +140,9 @@ export async function getMatchedEvents(year: number) {
   }
 }
 
+//Matcher Images
 export async function getMatchedImages(year: number) {
   const response = await getMatchedEvents(year);
-  console.log(response);
 
   if (response && Array.isArray(response)) {
     const eventsWithImages = await Promise.all(
@@ -153,4 +159,51 @@ export async function getMatchedImages(year: number) {
   } else {
     toast.error("Invalid response or data format");
   }
+}
+
+//Matcher Submissions
+export async function getUserSubmissions(email: string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("Events")
+    .select("*")
+    .eq("submitter", email);
+  if (error) {
+    toast.error("Couldnt retrieve data");
+  } else {
+    return data;
+  }
+}
+
+// Matcher Submissions Images
+export async function getUserSubmissionsImages(email: string) {
+  const response = await getUserSubmissions(email);
+
+  if (response && Array.isArray(response)) {
+    const eventsWithImages = await Promise.all(
+      response.map(async (event: any) => {
+        if (event.image) {
+          const data = await getEventImages(event.image);
+          return { ...event, imageUrl: data.publicUrl };
+        } else {
+          return { ...event, imageUrl: null };
+        }
+      })
+    );
+    return eventsWithImages;
+  } else {
+    toast.error("Invalid response or data format");
+  }
+}
+
+//get Events by id
+export async function getEventsById(id: string) {
+  const supabase = await createClient();
+  const data = await supabase
+    .from("Events")
+    .select("*")
+    .eq("id", id)
+    .limit(1)
+  return data;
 }

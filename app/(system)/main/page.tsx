@@ -3,6 +3,7 @@ import { SideBarMain } from "./_components/sidebarMain";
 import Link from "next/link";
 import Icon from "@/components/helpers/icons";
 import { ChevronRight } from "lucide-react";
+
 const modes: {
   title: string;
   value: string;
