@@ -28,7 +28,7 @@ export const LoginForm = () => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
-    toast("Creating your account", {
+    toast("Validating credentials", {
       icon: <Loader2 className="size-4 animate-spin" />,
     });
     const formData = new FormData(event.currentTarget);

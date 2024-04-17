@@ -46,15 +46,11 @@ export const NavBarMain = () => {
         </p>
       </Link>
       <div className="h-full items-center justify-end gap-x-2 hidden lg:flex">
-        <UserDropdown username={userData} />
+        {userData && <UserDropdown username={userData.user} />}
         <Separator orientation="vertical" />
         <ModeToggle />
       </div>
       <NavMobile user={userData} />
-      {/* <Button variant="default" onClick={handlescore}>
-        maxScore
-      </Button> */}
     </header>
   );
 };
-

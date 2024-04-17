@@ -8,7 +8,6 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/supaclient";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { getLeaderboard, updateScore } from "@/lib/supabase/score";
 
 export const SideBarMain = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +24,6 @@ export const SideBarMain = () => {
     }
     router.push("/auth");
     setIsLoading(false);
-    
   };
 
   return (
@@ -51,6 +49,17 @@ export const SideBarMain = () => {
         >
           <Link href={"/main/submit"}>
             Submit event
+            <ChevronRight className="size-4" />
+          </Link>
+        </Button>
+        <Button
+          variant={"ghost"}
+          size={"sm"}
+          asChild
+          className="flex items-center gap-x-2 w-full justify-between px-4 hover:text-primary"
+        >
+          <Link href={"/main/submissions"}>
+            My submissions
             <ChevronRight className="size-4" />
           </Link>
         </Button>

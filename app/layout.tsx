@@ -10,6 +10,7 @@ import {
   Info,
   Loader,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const inter = Figtree({ subsets: ["latin"] });
 
@@ -48,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn(inter.className, "selection:bg-primary/20 selection:text-primary")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

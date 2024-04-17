@@ -6,10 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { makeEvent } from "@/lib/supabase/events";
+import { createClient } from "@/lib/supabase/supaclient";
 import { Loader2, Upload } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const FormSubmitEvents = () => {
   const [imageSrc, setImageSrc] = useState("");
@@ -17,7 +18,25 @@ export const FormSubmitEvents = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [era, setEra] = useState(true);
   const router = useRouter();
-  const path = usePathname();
+  const [userData, setUserData] = useState<any>();
+
+  useEffect(() => {
+    const supabase = createClient();
+    const fetchUser = async () => {
+      try {
+        const { data, error } = await supabase.auth.getUser();
+        if (error) {
+          console.error("Error fetching user:", error);
+        } else {
+          setUserData(data?.user);
+        }
+      } catch (error) {
+        console.error("Unexpected error:", error);
+      }
+    };
+
+    fetchUser();
+  }, [isLoading]);
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
@@ -35,7 +54,7 @@ export const FormSubmitEvents = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     setIsLoading(true);
-    const error = await makeEvent(formData, imageFile, era);
+    const error = await makeEvent(formData, imageFile, era, userData);
     if (error) {
       console.log("error");
       setIsLoading(false);
@@ -121,7 +140,7 @@ export const FormSubmitEvents = () => {
           name="month"
           type="number"
           max={12}
-          min={0}
+          min={1}
           placeholder="MM"
           className="w-full lg:max-w-xs col-span-1 lg:col-span-2"
         />
@@ -133,7 +152,7 @@ export const FormSubmitEvents = () => {
           name="day"
           type="number"
           max={31}
-          min={0}
+          min={1}
           placeholder="DD"
           className="w-full lg:max-w-xs col-span-1 lg:col-span-2"
         />
