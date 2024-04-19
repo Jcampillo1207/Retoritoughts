@@ -85,7 +85,7 @@ export const EditForm = ({
     location.reload();
   }
 
-  console.log(verified)
+  console.log(data);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -146,7 +146,9 @@ export const EditForm = ({
                 <div
                   className="w-full aspect-video border bg-background rounded-2xl"
                   style={{
-                    backgroundImage: `url(${imageSrc})`,
+                    backgroundImage: `url(${
+                      (imageFile && imageSrc) || data.imageUrl
+                    })`,
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",

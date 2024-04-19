@@ -61,7 +61,7 @@ export const TableComponent = () => {
             value={value}
             defaultValue="max_score"
           >
-            <SelectTrigger className="w-[200px]" defaultValue={range}>
+            <SelectTrigger className="w-[200px]" defaultValue={value}>
               <SelectValue placeholder="Clásico" />
             </SelectTrigger>
             <SelectContent>
@@ -123,7 +123,7 @@ export const TableComponent = () => {
               data.map((item: any, index: number) => {
                 return (
                   <TableRow key={index}>
-                    <TableCell>{index + 1}</TableCell>
+                    <TableCell className="text-muted-foreground">{index + 1}</TableCell>
                     <TableCell>
                       {value == "max_score"
                         ? item.max_score

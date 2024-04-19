@@ -32,27 +32,33 @@ export default function MatcherPage() {
   return (
     <main className="w-full h-full min-h-[calc(100dvh_-_56px)] lg:h-[calc(100dvh_-_56px)] items-start justify-start flex flex-col lg:flex-row relative">
       <section className="w-full h-fit items-start lg:items-start justify-between flex-row lg:flex-col gap-y-10 px-5 md:px-7 py-5 lg:py-10 border-b lg:border-b-0 border-r-0 lg:max-w-[250px] lg:border-r flex lg:min-h-[calc(100dvh_-_56px)]">
-        <Button
-          variant={"ghost"}
-          size={"sm"}
-          asChild
-          className="items-center justify-center gap-x-2 text-muted-foreground w-fit lg:w-full hidden lg:flex"
-        >
-          <Link href={"/main"}>
-            <ArrowLeft className="size-4" />
-            Return to dashboard
-          </Link>
-        </Button>
-        <Button
-          variant={"ghost"}
-          size={"icon"}
-          asChild
-          className="items-center justify-center gap-x-2 text-muted-foreground flex lg:hidden"
-        >
-          <Link href={"/main"}>
-            <ArrowLeft className="size-4" />
-          </Link>
-        </Button>
+        <div className="flex flex-col gap-y-3">
+          <h1 className="text-xl font-bold text-primary antialiased hidden lg:flex">
+            Year Matcher
+          </h1>
+          <Button
+            variant={"ghost"}
+            size={"sm"}
+            asChild
+            className="items-center justify-center gap-x-2 text-muted-foreground w-fit lg:w-full hidden lg:flex"
+          >
+            <Link href={"/main"}>
+              <ArrowLeft className="size-4" />
+              Return to dashboard
+            </Link>
+          </Button>
+          <Button
+            variant={"ghost"}
+            size={"sm"}
+            asChild
+            className="items-center justify-center gap-x-2 text-muted-foreground w-fit lg:w-full lg:hidden flex"
+          >
+            <Link href={"/main"}>
+              <ArrowLeft className="size-4" />
+              Year Matcher
+            </Link>
+          </Button>
+        </div>
       </section>
       <section className="flex items-start justify-start py-5 lg:py-10 bg-muted dark:bg-muted/10 flex-1 w-full h-full max-h-full flex-col overflow-hidden">
         <div className="w-full h-fit border-b pb-5 lg:pb-10 px-5 md:px-7">

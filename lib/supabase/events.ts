@@ -4,17 +4,20 @@ import { createClient } from "./supaclient";
 //Get all events
 //Input: None
 //Ouput: All events in DB
-export async function getAllEvents() {
+export async function getAllEvents(value: string, asc: boolean) {
   const supabase = await createClient();
-  const { data, error } = await supabase.from("Events").select();
+  const { data, error } = await supabase
+    .from("Events")
+    .select("*")
+    .order(value == "*" ? "id" : value, { ascending: asc });
   return data;
 }
 
 //Get all event images
 //Input: None
 //Ouput: All events in DB with its image
-export async function getAllEventsImages() {
-  const response = await getAllEvents();
+export async function getAllEventsImages(value: string, asc: boolean) {
+  const response = await getAllEvents(value, asc);
 
   console.log(response);
   if (response && Array.isArray(response)) {
@@ -55,7 +58,8 @@ export async function getRealEvents(eventNum: number) {
   const data = await supabase
     .from("random_events")
     .select("*")
-    .eq("is_verified", true).eq("fantasy", false)
+    .eq("is_verified", true)
+    .eq("fantasy", false)
     .limit(eventNum);
   return data;
 }
@@ -172,7 +176,7 @@ export async function fetchData(numOfEvents: number) {
 
 //Fetch data
 //Input: number of events as (numOfEvents)
-//Output: numOfEvents random real events with their respective images 
+//Output: numOfEvents random real events with their respective images
 export async function fetchRealData(numOfEvents: number) {
   try {
     const response = await getRealEvents(numOfEvents);
@@ -245,7 +249,8 @@ export async function getUserSubmissions(email: string) {
   const { data, error } = await supabase
     .from("Events")
     .select("*")
-    .eq("submitter", email);
+    .eq("submitter", email)
+    .order("is_verified", { ascending: false });
   if (error) {
     toast.error("Couldnt retrieve data");
   } else {

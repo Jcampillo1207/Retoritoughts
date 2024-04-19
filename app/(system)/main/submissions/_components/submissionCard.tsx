@@ -47,7 +47,7 @@ export const SubmissionCard = ({
         <h2 className="text-lg antialiased font-bold text-pretty line-clamp-2 tracking-wide">
           {data.title}
         </h2>
-        <p className="text-sm text-muted-foreground line-clamp-2">
+        <p className="text-sm text-muted-foreground line-clamp-3">
           {data.decription}
         </p>
       </div>
