@@ -3,8 +3,9 @@ import { redirect } from "next/navigation";
 import { createClient } from "./supaclient";
 import { toast } from "sonner";
 
-// fetchUserData
-
+//Fetch User
+//Input: Data that contains the user's email
+//Output: User's email
 export async function fetchUser(data: any) {
   const supabase = createClient();
 
@@ -18,10 +19,14 @@ export async function fetchUser(data: any) {
     error: error,
   };
 
+  console.log(info);
+
   return info;
 }
 
-// insertUserData => User Table
+//Inserts User into PUBLIC User table in DB
+//Input: User's data
+//Ouput: returns error
 export async function insertUser(data: any) {
   const supabase = createClient();
   const { error } = await supabase
@@ -30,7 +35,9 @@ export async function insertUser(data: any) {
   return error;
 }
 
-// SignUp
+//SignUp
+//Input: Form Data
+//Output: void
 export async function signupUser(formData: FormData) {
   const supabase = createClient();
 
@@ -72,8 +79,9 @@ export async function signupUser(formData: FormData) {
   }
 }
 
-// LogIn
-
+//LogIn
+//Input: Form Data
+//Output: void
 export async function loginUser(formData: FormData | any) {
   const supabase = createClient();
   const data = {
@@ -90,6 +98,9 @@ export async function loginUser(formData: FormData | any) {
   }
 }
 
+//Reset Password
+//Input: Form Data
+//Output: void
 export async function resetPassword(formData: FormData) {
   const password = formData.get("password") as string;
   const supabase = createClient();
@@ -103,8 +114,9 @@ export async function resetPassword(formData: FormData) {
   }
 }
 
-// Login using Github
-
+//Login using Github
+//Input: None
+//Output: void
 export async function githubHandler() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -120,8 +132,9 @@ export async function githubHandler() {
   }
 }
 
-// Login using Google
-
+//Login using Google
+//Input: None
+//Output: void
 export async function googleHandler() {
   const supabase = createClient();
   toast.info("Redirecting");
@@ -136,4 +149,10 @@ export async function googleHandler() {
   } else {
     toast.success("Continue with google");
   }
+}
+
+export async function getUserAuth(){
+  const supabase = createClient();
+  const {data} = await supabase.auth.getUser();
+  return data
 }

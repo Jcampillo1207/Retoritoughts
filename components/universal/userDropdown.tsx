@@ -157,17 +157,6 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
             </Button>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem asChild className="cursor-pointer">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground px-4"
-              disabled={loading}
-            >
-              My score
-              <Trophy className="size-4" />
-            </Button>
-          </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Button
               variant="destructive"

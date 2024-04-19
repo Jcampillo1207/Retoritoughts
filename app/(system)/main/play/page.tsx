@@ -27,11 +27,52 @@ export default function PlayPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<any[]>();
   const [highscore, setHighscore] = useState<number>();
-  const skeletonCount = 2;
   const [event, setEvent] = useState<number>();
   const [info, setInfo] = useState<any>();
   const [next, setNext] = useState(false);
   const [lose, setLose] = useState(false);
+  const [progress, setProgress] = useState(100);
+  const [isActive, setIsActive] = useState(false);
+
+  const skeletonCount = 2;
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+
+    if (isActive && progress > 0) {
+      interval = setInterval(() => {
+        setProgress((prevProgress) => {
+          if (prevProgress > 0) {
+            const nextProgress = prevProgress - 1;
+            if (nextProgress <= 0) {
+              setLose(true);
+              const correct = compareEventTimes(info);
+              if (correct == 0) {
+                setEvent(1);
+              } else if (correct == 1) {
+                setEvent(0);
+              }
+              return 0;
+            }
+            return nextProgress;
+          }
+          return prevProgress;
+        });
+      }, 100);
+    } else if (!isActive && progress !== 100) {
+      clearInterval(interval!);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isActive, progress]);
+
+  const resetTimer = () => {
+    setProgress(100);
+    setIsActive(false);
+    setLose(false);
+  };
 
   useEffect(() => {
     const supabase = createClient();
@@ -42,7 +83,6 @@ export default function PlayPage() {
           console.error("Error fetching user:", error);
         } else {
           setUserData(data?.user);
-          console.log(userData);
           if (userData) {
             setHighscore(await getHighScore(userData.email));
           }
@@ -62,6 +102,7 @@ export default function PlayPage() {
       setInfo(data);
       setImages(data);
       setIsLoading(false);
+      setIsActive(true);
       setEvent(undefined);
     }
     fetch();
@@ -80,6 +121,7 @@ export default function PlayPage() {
         // Win
         setScore(score + 1);
         setNext(!next);
+        resetTimer();
       } else {
         const newHighScore = await updateScore(score, userData.email);
         setScore(0);
@@ -90,6 +132,7 @@ export default function PlayPage() {
   }
 
   function handleContinue() {
+    resetTimer();
     setLose(!lose);
     setNext(!next);
     setImages(undefined);
@@ -99,36 +142,44 @@ export default function PlayPage() {
   return (
     <main className="w-full h-full min-h-[calc(100dvh_-_56px)] lg:h-[calc(100dvh_-_56px)] items-start justify-start flex flex-col lg:flex-row relative">
       <section className="w-full h-fit items-start lg:items-start justify-between flex-row lg:flex-col gap-y-10 px-5 md:px-7 py-5 lg:py-10 border-b lg:border-b-0 border-r-0 lg:max-w-[250px] lg:border-r flex lg:min-h-[calc(100dvh_-_56px)]">
-        {score > 0 ? (
-          <AlertDialogComponent />
-        ) : (
-          <>
-            <Button
-              variant={"ghost"}
-              size={"sm"}
-              asChild
-              className="items-center justify-center gap-x-2 text-muted-foreground w-fit lg:w-full hidden lg:flex"
-            >
-              <Link href={"/main"}>
-                <ArrowLeft className="size-4" />
-                Return to dashboard
-              </Link>
-            </Button>
-            <Button
-              variant={"ghost"}
-              size={"icon"}
-              asChild
-              className="items-center justify-center gap-x-2 text-muted-foreground flex lg:hidden aspect-square"
-            >
-              <Link href={"/main"}>
-                <ArrowLeft className="size-4" />
-              </Link>
-            </Button>
-          </>
-        )}
+        <div className="flex flex-col gap-y-3">
+          <h1 className="text-xl font-bold text-primary antialiased hidden lg:flex">
+            Classic Mode
+          </h1>
+          {score > 0 ? (
+            <AlertDialogComponent />
+          ) : (
+            <>
+              <Button
+                variant={"ghost"}
+                size={"sm"}
+                asChild
+                className="items-center justify-center gap-x-2 text-muted-foreground w-fit lg:w-full hidden lg:flex"
+              >
+                <Link href={"/main"}>
+                  <ArrowLeft className="size-4" />
+                  Return to dashboard
+                </Link>
+              </Button>
+              <Button
+                variant={"ghost"}
+                size={"sm"}
+                asChild
+                className="items-center justify-center gap-x-2 text-muted-foreground w-fit lg:w-full lg:hidden flex"
+              >
+                <Link href={"/main"}>
+                  <ArrowLeft className="size-4" />
+                  Classic Mode
+                </Link>
+              </Button>
+            </>
+          )}
+        </div>
         <div className="w-fit lg:w-full h-fit items-start justify-start flex flex-col gap-y-1">
           <div className="w-fit lg:w-full h-fit border rounded-lg lg:rounded-2xl px-5 py-2 lg:py-5 text-sm flex flex-row lg:flex-col gap-2 lg:gap-7 items-center lg:items-start justify-start">
-            <p className="text-muted-foreground lg:text-lg w-full text-center">Current Score</p>
+            <p className="text-muted-foreground lg:text-lg w-full text-center">
+              Current Score
+            </p>
             <div className="lg:w-full h-full max-w-[70px] lg:max-w-[calc(250px_-_20px)] items-center justify-center flex">
               <p className="lg:text-5xl antialiased font-bold truncate text-ellipsis">
                 {score}
@@ -142,7 +193,10 @@ export default function PlayPage() {
         </div>
       </section>
       <section className="flex items-start justify-start px-5 md:px-7 py-5 lg:py-10 bg-muted dark:bg-muted/10 flex-1 w-full h-full max-h-full flex-col gap-y-5 lg:gap-y-10 overflow-y-scroll relative">
-        <Progress value={100} className="w-full h-[2px] absolute top-0 left-0 rounded-none"/>
+        <Progress
+          value={progress}
+          className="w-full h-[2px] absolute top-0 left-0 rounded-none"
+        />
         <div className="w-full h-fit items-center justify-between gap-x-5 flex">
           <h1 className="text-xl md:text-2xl lg:text-3xl antialiased font-bold tracking-wide max-w-sm flex text-pretty">
             Which historical event happened first?
