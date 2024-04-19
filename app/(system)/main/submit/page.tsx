@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 export default function SubmitPage() {
   return (
     <main className="w-full h-fit min-h-[calc(100dvh_-_56px)] lg:h-[calc(100dvh_-_56px)] lg:max-h-[100dvh] items-start justify-start flex flex-col lg:flex-row sticky top-0 overflow-hidden">
-      <aside className="w-full h-fit lg:h-full border-b lg:border-b-0 lg:border-r col-span-1 lg:col-span-2 px-5 md:px-7 py-10 lg:max-w-[250px]">
+      <aside className="w-full h-fit lg:h-full border-b lg:border-b-0 lg:border-r col-span-1 lg:col-span-2 px-5 md:px-7 py-5 lg:py-10 lg:max-w-[250px]">
         <Button
           variant={"ghost"}
           size={"sm"}
