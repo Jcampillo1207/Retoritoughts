@@ -106,10 +106,10 @@ export const Header = () => {
         )) || (
           <>
             <Button variant={"outline"} size={"sm"} asChild>
-              <Link href={"/submit"}>Login to submit events</Link>
+              <Link href={"/main/submit"}>Login to submit events</Link>
             </Button>
             <Button variant={"outline"} size={"sm"} asChild>
-              <Link href={"/leaderboard"}>Leaderboard</Link>
+              <Link href={"/main/leaderboard"}>Leaderboard</Link>
             </Button>
             <Button variant="default" size="sm" asChild>
               <Link href="/auth">Log in</Link>

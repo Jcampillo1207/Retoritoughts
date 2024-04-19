@@ -56,7 +56,7 @@ export const RegisterForm = () => {
             required
             type="text"
             name="username"
-            placeholder="XXSuperMasterMinecraftXX"
+            placeholder="Username"
           />
         </div>
         {/* Input Mail */}
