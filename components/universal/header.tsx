@@ -19,8 +19,8 @@ export const Header = () => {
 
   const dbUser = {
     email: "",
-    username: ""
-  }
+    username: "",
+  };
 
   useEffect(() => {
     const supabase = createClient();
@@ -33,9 +33,9 @@ export const Header = () => {
         } else {
           setUser(data?.user);
           if (data?.user.user_metadata.name) {
-            dbUser.username = data?.user.user_metadata.name
+            dbUser.username = data?.user.user_metadata.name;
           } else if (data?.user.user_metadata.user_name) {
-            dbUser.username = data?.user.user_metadata.user_name
+            dbUser.username = data?.user.user_metadata.user_name;
           }
           dbUser.email = data?.user.email as string;
           insertUser(dbUser);
@@ -74,6 +74,8 @@ export const Header = () => {
     }
   }, []);
 
+  console.log(user);
+
   return (
     <header className="w-full h-14 px-5 md:px-7 lg:px-14 xl:px-36 py-3 items-center justify-between flex border-b fixed top-0 bg-background/50 backdrop-blur-sm z-[999]">
       <Link
@@ -94,7 +96,14 @@ export const Header = () => {
             <Github className="size-4" />
           </Link>
         </Button>
-        {(user && <UserDropdown username={user} />) || (
+        {(user && (
+          <>
+            <UserDropdown username={user} />
+            <Button variant={"default"} size={"sm"} asChild>
+              <Link href={"/main"}>Dashboard</Link>
+            </Button>
+          </>
+        )) || (
           <>
             <Button variant={"outline"} size={"sm"} asChild>
               <Link href={"/submit"}>Login to submit events</Link>

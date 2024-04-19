@@ -25,7 +25,7 @@ const modes: {
     disabled: false,
     icon: "Shapes",
     info: "In Classic mode, players must quickly determine which of two events happened first, this mode includes real events as well as fictional events. You'll have a 10-second timer to answer each comparison.",
-    video: "/classic.mov",
+    video: "/classic.mp4",
   },
   {
     title: "Year Matcher",
@@ -33,7 +33,7 @@ const modes: {
     disabled: false,
     icon: "Shuffle",
     info: "In this mode you'll be able to enter a year and be able to see which events happened in that year",
-    video: "/year.mov",
+    video: "/year.mp4",
   },
   {
     title: "Realistic",
@@ -41,7 +41,7 @@ const modes: {
     disabled: false,
     icon: "BookMarked",
     info: "In Realistic mode, players must quickly determine which of two events happened first, this mode only includes real events. You'll have a 10-second timer to answer each comparison.",
-    video: "/realistic.mov",
+    video: "/realistic.mp4",
   },
   {
     title: "Frenzy",
@@ -49,7 +49,7 @@ const modes: {
     disabled: false,
     icon: "Timer",
     info: "In Frenzy mode, players must quickly determine which of two events happened first, this mode include real events as well as fictional events. Each time you make a correct choice, the timer's duration will reduce.",
-    video: "/frenzy.mov",
+    video: "/frenzy.mp4",
   },
   {
     title: "MoneyUp",

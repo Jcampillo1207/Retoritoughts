@@ -212,7 +212,7 @@ export const EditForm = ({
               <div className="flex items-center space-x-2">
                 <Label>Real</Label>
                 <Switch
-                  checked={!fantasy}
+                  checked={fantasy}
                   onClick={() => setFantasy(!fantasy)}
                 />
                 <Label>Fiction</Label>

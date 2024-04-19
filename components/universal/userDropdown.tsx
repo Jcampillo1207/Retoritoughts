@@ -13,6 +13,7 @@ import {
 import { Button } from "../ui/button";
 import {
   Award,
+  BookMarked,
   ChevronDown,
   Gamepad2,
   LayoutDashboard,
@@ -25,6 +26,7 @@ import {
 import { Label } from "../ui/label";
 import { createClient } from "@/lib/supabase/supaclient";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { fetchUser } from "@/lib/supabase/actions";
 
 interface UserDropdownProps {
   username: string;
@@ -34,6 +36,7 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
   const router = useRouter();
   const [loading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<any>();
+  const [userRole, setUserRole] = useState<any>();
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -65,6 +68,7 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
 
     checkAuthStatus();
   }, [username]);
+
 
   if (userData === undefined) {
     return (
@@ -122,6 +126,18 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer">
             <Button
+              onClick={() => router.push("/main/leaderboard")}
+              variant="ghost"
+              size="sm"
+              className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground px-4"
+              disabled={loading}
+            >
+              Leaderboard
+              <Award className="size-4" />
+            </Button>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <Button
               onClick={() => router.push("/main/submit")}
               variant="ghost"
               size="sm"
@@ -134,14 +150,14 @@ export const UserDropdown = ({ username }: UserDropdownProps) => {
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer">
             <Button
-              onClick={() => router.push("/main/leaderboard")}
+              onClick={() => router.push("/main/submissions")}
               variant="ghost"
               size="sm"
               className="flex gap-x-2 w-full justify-between cursor-pointer text-muted-foreground px-4"
               disabled={loading}
             >
-              Leaderboard
-              <Award className="size-4" />
+              My submissions
+              <BookMarked className="size-4" />
             </Button>
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer">
