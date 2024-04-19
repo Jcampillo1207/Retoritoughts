@@ -55,7 +55,7 @@ export const FormSubmitEvents = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     setIsLoading(true);
-    const error = await makeEvent(formData, imageFile, era, userData, fantasy);
+    const error = await makeEvent(formData, imageFile, era, fantasy, userData);
     if (error) {
       console.log("error");
       setIsLoading(false);
