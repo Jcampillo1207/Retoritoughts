@@ -67,7 +67,7 @@ export const HeroSection = () => {
                 className="flex items-center gap-x-2 w-full md:w-fit max-w-sm"
                 asChild
               >
-                <Link href={"/main/play"}>
+                <Link href={"/main"}>
                   Play Now
                   <Gamepad2Icon className="size-4" />
                 </Link>

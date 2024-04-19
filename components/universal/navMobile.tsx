@@ -115,6 +115,19 @@ export const NavMobile = ({ user }: { user: any }) => {
                             asChild
                             className="w-full items-center justify-between text-muted-foreground"
                           >
+                            <Link href={"/main/leaderboard"}>
+                              Leaderboard
+                              <Award className="size-4" />
+                            </Link>
+                          </Button>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Button
+                            variant={"outline"}
+                            size={"lg"}
+                            asChild
+                            className="w-full items-center justify-between text-muted-foreground"
+                          >
                             <Link href={"/main/submit"}>
                               Submit event
                               <Upload className="size-4" />
@@ -128,8 +141,8 @@ export const NavMobile = ({ user }: { user: any }) => {
                             asChild
                             className="w-full items-center justify-between text-muted-foreground"
                           >
-                            <Link href={"/main/leaderboard"}>
-                              Leaderboard
+                            <Link href={"/main/submissions"}>
+                              My submissions
                               <Award className="size-4" />
                             </Link>
                           </Button>
