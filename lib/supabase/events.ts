@@ -91,6 +91,7 @@ export async function makeEvent(
     fantasy: fantasy,
   });
   if (error) {
+    console.log(error);
     toast.error("There was an error submitting the event");
     return error;
   } else {
