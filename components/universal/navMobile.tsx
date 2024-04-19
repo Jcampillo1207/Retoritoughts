@@ -150,19 +150,6 @@ export const NavMobile = ({ user }: { user: any }) => {
                         <Separator />
                         <SheetClose asChild>
                           <Button
-                            variant={"outline"}
-                            size={"lg"}
-                            asChild
-                            className="w-full items-center justify-between text-muted-foreground"
-                          >
-                            <Link href={"/main/score"}>
-                              My Score
-                              <Trophy className="size-4" />
-                            </Link>
-                          </Button>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Button
                             variant={"destructive"}
                             size={"lg"}
                             asChild

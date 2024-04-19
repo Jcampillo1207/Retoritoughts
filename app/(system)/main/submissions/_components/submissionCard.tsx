@@ -2,8 +2,15 @@ import { Badge } from "@/components/ui/badge";
 import { EditIcon, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { EditForm } from "./editForm";
+import { Switch } from "@/components/ui/switch";
 
-export const SubmissionCard = ({ data }: { data: any }) => {
+export const SubmissionCard = ({
+  data,
+  admin = false,
+}: {
+  data: any;
+  admin: boolean;
+}) => {
   return (
     <div className="rounded-2xl h-fit p-2 border flex-1 lg:max-w-md flex gap-y-5 flex-col min-w-[300px] min-h-[350px] group relative">
       <div className="w-full h-auto aspect-video items-center justify-center flex relative rounded-xl overflow-hidden">
@@ -44,7 +51,7 @@ export const SubmissionCard = ({ data }: { data: any }) => {
           {data.decription}
         </p>
       </div>
-      <EditForm data={data}>
+      <EditForm admin={admin} data={data}>
         <Badge className="flex gap-x-1 absolute top-4 h-fit lg:bottom-4 right-4 lg:hidden group-hover:flex bg-foreground text-background z-30 cursor-pointer hover:bg-foreground/80 rounded-sm shadow-md">
           Edit <EditIcon className="size-3" />
         </Badge>

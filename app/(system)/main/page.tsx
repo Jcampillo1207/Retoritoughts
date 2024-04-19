@@ -2,49 +2,70 @@ import { cn } from "@/lib/utils";
 import { SideBarMain } from "./_components/sidebarMain";
 import Link from "next/link";
 import Icon from "@/components/helpers/icons";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Info } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 
 const modes: {
   title: string;
   value: string;
   disabled: boolean;
   icon: string;
+  info: string;
+  video: string;
 }[] = [
   {
     title: "Classic",
     value: "play",
     disabled: false,
     icon: "Shapes",
+    info: "In Classic mode, players must quickly determine which of two events happened first, this mode includes real events as well as fictional events. You'll have a 10-second timer to answer each comparison.",
+    video: "/classic.mov",
   },
   {
     title: "Year Matcher",
     value: "matcher",
     disabled: false,
     icon: "Shuffle",
+    info: "In this mode you'll be able to enter a year and be able to see which events happened in that year",
+    video: "/year.mov",
   },
   {
     title: "Realistic",
     value: "realistic",
-    disabled: true,
+    disabled: false,
     icon: "BookMarked",
+    info: "In Realistic mode, players must quickly determine which of two events happened first, this mode only includes real events. You'll have a 10-second timer to answer each comparison.",
+    video: "/realistic.mov",
   },
   {
     title: "Frenzy",
     value: "frenzy",
-    disabled: true,
+    disabled: false,
     icon: "Timer",
+    info: "In Frenzy mode, players must quickly determine which of two events happened first, this mode include real events as well as fictional events. Each time you make a correct choice, the timer's duration will reduce.",
+    video: "/frenzy.mov",
   },
   {
     title: "MoneyUp",
     value: "moneyup",
     disabled: true,
     icon: "Coins",
+    info: "",
+    video: "",
   },
   {
     title: "Arcade",
     value: "arcade",
     disabled: true,
     icon: "Joystick",
+    info: "",
+    video: "",
   },
 ];
 
@@ -77,6 +98,34 @@ export default function MainPage() {
                   {mode.title}
                   <ChevronRight className="size-4" />
                 </div>
+                <TooltipProvider delayDuration={200}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant={"secondary"}
+                        size={"icon"}
+                        className={cn("absolute left-5 bottom-5 z-40", mode.disabled && "hidden")}
+                      >
+                        <Info className="size-4 text-foreground" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      className="max-w-sm w-full flex flex-col gap-y-5 p-5 items-start justify-start"
+                    >
+                      <video
+                        src={mode.video}
+                        autoPlay
+                        muted
+                        controls
+                        loop
+                        className="aspect-video w-full rounded-xl"
+                      ></video>
+                      <p className="antialiased text-muted-foreground tracking-wide">{mode.info}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+
                 <div className="h-full absolute z-0 aspect-square botom-0 translate-y-5 md:translate-y-2 right-0">
                   <Icon
                     className={cn(

@@ -16,6 +16,7 @@ export const FormSubmitEvents = () => {
   const [imageSrc, setImageSrc] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [fantasy, setFantasy] = useState(false);
   const [era, setEra] = useState(true);
   const router = useRouter();
   const [userData, setUserData] = useState<any>();
@@ -54,13 +55,13 @@ export const FormSubmitEvents = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     setIsLoading(true);
-    const error = await makeEvent(formData, imageFile, era, userData);
+    const error = await makeEvent(formData, imageFile, era, userData, fantasy);
     if (error) {
       console.log("error");
       setIsLoading(false);
     } else {
       setIsLoading(false);
-      router.refresh;
+      location.reload();
     }
   }
 
@@ -167,6 +168,17 @@ export const FormSubmitEvents = () => {
             onClick={() => setEra(!era)}
           />
           <Label>A.C.E</Label>
+        </div>
+      </div>
+      <div className="w-full h-fit grid grid-cols-1 lg:grid-cols-3 gap-x-14 gap-y-3">
+        <Label className="w-full h-fit">Type:</Label>
+        <div className="flex items-center space-x-2">
+          <Label>Real</Label>
+          <Switch
+            disabled={(isLoading && true) || false}
+            onClick={() => setFantasy(!fantasy)}
+          />
+          <Label>Fiction</Label>
         </div>
       </div>
       <div className="w-full h-fit mt-7 flex items-center justify-end border-t py-10 lg:py-14">

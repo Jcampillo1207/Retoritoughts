@@ -73,11 +73,11 @@ const SubmissionsPage = () => {
           </Link>
         </Button>
       </aside>
-      <div className="w-full flex-1 flex flex-wrap h-fit overflow-scroll px-5 md:px-7 py-10 bg-muted dark:bg-muted/10 items-start justify-start min-h-[calc(100dvh_-_56px)]">
+      <div className="w-full flex-1 flex flex-wrap h-fit overflow-scroll px-5 md:px-7 py-10 bg-muted dark:bg-muted/10 items-start justify-start min-h-[calc(100dvh_-_56px)]  max-h-[calc(100dvh_-_56px)]">
         <div className="w-full h-full flex flex-wrap gap-5 min-h-fit items-start justify-start">
           {(submissions &&
             submissions.map((item: any, index: number) => {
-              return <SubmissionCard key={index} data={item} />;
+              return <SubmissionCard key={index} data={item} admin={false}/>;
             })) || (
             <>
               <Skeleton className="w-full h-auto rounded-2xl overflow-hidden min-h-[300px] flex-1 lg:max-w-md min-w-[300px]" />
