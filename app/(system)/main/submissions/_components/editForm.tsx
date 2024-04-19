@@ -110,15 +110,29 @@ export const EditForm = ({
             className="flex flex-col min-h-[calc(100vh_-_80px)] h-auto gap-y-7 items-start justify-start w-full pb-28 px-6 relative"
           >
             {admin && (
-              <div className="w-full h-fit items-start justify-start flex flex-col gap-y-5">
-                <Label className="w-full h-fit">Verified:</Label>
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    checked={verified}
-                    onClick={() => setVerified(!verified)}
+              <>
+                <div className="w-full h-fit items-start justify-start flex flex-col gap-y-5">
+                  <Label className="w-full h-fit">Submited by:</Label>
+                  <Input
+                    defaultValue={data.submitter}
+                    required
+                    name="submitter"
+                    disabled
+                    type="text"
+                    placeholder={data.submitter}
+                    className="w-full"
                   />
                 </div>
-              </div>
+                <div className="w-full h-fit items-start justify-start flex flex-col gap-y-5">
+                  <Label className="w-full h-fit">Verified:</Label>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      checked={verified}
+                      onClick={() => setVerified(!verified)}
+                    />
+                  </div>
+                </div>
+              </>
             )}
             <div className="w-full h-fit items-start justify-start flex flex-col gap-y-5">
               <Label>Title:</Label>

@@ -19,8 +19,6 @@ export async function fetchUser(data: any) {
     error: error,
   };
 
-  console.log(info);
-
   return info;
 }
 
@@ -151,8 +149,8 @@ export async function googleHandler() {
   }
 }
 
-export async function getUserAuth(){
+export async function getUserAuth() {
   const supabase = createClient();
-  const {data} = await supabase.auth.getUser();
-  return data
+  const { data } = await supabase.auth.getUser();
+  return data;
 }
